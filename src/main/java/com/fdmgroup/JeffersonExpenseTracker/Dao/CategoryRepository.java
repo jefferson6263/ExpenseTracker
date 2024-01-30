@@ -16,7 +16,7 @@ public interface CategoryRepository extends JpaRepository<Category, Integer> {
 //	// if putting in methods that change the database you need the transactional tag
 //	// modiyfing tag is used for non select queryies
 //
-//	@Transactional
+//	@Transactional 
 //	void deleteByFavColor(String favColor);
 }
 

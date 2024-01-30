@@ -10,6 +10,7 @@ import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 @Service
 public class UserService {
+	
 	private UserRepository userRepo;
 
 	@Autowired
@@ -47,9 +48,6 @@ public class UserService {
 
 	}
 
-//	public List<User> findpartialMatch(String q) {
-//		
-//		return userRepo.findPartialMatch(q);
-//	}
+
 
 }
