@@ -1,6 +1,7 @@
 package com.fdmgroup.JeffersonExpenseTracker.Model;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,16 +33,16 @@ public class Expense {
 	private User user;
 
 	@Column(name = "start_date")
-	private Timestamp startDate;
+	private LocalDate startDate;
 
 	@Column(name = "end_name")
-	private Timestamp endDate;
+	private LocalDate endDate;
 
 	@ManyToMany
 	@JoinTable(name = "categorisation", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "expense_id"))
 	private List<Category> categories = new ArrayList<Category>();
 
-	public Expense(String name, double amount, String description, Timestamp startDate, Timestamp endDate) {
+	public Expense(String name, double amount, String description, LocalDate startDate, LocalDate endDate) {
 		super();
 		this.name = name;
 		this.amount = amount;
@@ -94,19 +95,19 @@ public class Expense {
 		this.user = user;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Timestamp startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Timestamp endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

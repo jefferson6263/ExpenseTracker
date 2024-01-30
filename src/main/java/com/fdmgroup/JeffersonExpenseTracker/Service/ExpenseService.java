@@ -5,9 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.fdmgroup.JeffersonExpenseTracker.Dao.CategoryRepository;
+
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
-import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 
 @Service

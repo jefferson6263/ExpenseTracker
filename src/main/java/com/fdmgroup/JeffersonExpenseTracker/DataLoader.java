@@ -1,6 +1,7 @@
 package com.fdmgroup.JeffersonExpenseTracker;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,8 +45,6 @@ public class DataLoader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
-		
-
 		List<Category> categories = new ArrayList<Category>();
 
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123", categories);
@@ -53,22 +52,29 @@ public class DataLoader implements ApplicationRunner {
 		User user3 = new User("Mike", "Yao", "mikeyao@live.com", "mikeyao", "java23", categories);
 		User user4 = new User("Rachel", "Perry", "rachelperry@live.com", "rperry1", "moo89", categories);
 
-		Timestamp startDate = new Timestamp(System.currentTimeMillis());
-		Timestamp endDate = new Timestamp(System.currentTimeMillis());
-
-		Expense exp1 = new Expense("Water Fee", 100.23,
-				"water fee, a little higher than usual as a friend was staying over", startDate, endDate);
-		Expense exp2 = new Expense("Office Supplies", 6.34, "Purchase of essential office supplies", startDate,
-				endDate);
-		Expense exp3 = new Expense("Travel Expense", 25.30, "Costs related to business travel", startDate, endDate);
-		Expense exp4 = new Expense("Dining Out", 70.85, "Cost of meals and snacks from restaurants", startDate,
-				endDate);
-		Expense exp5 = new Expense("Personal Care", 120.10, "Expenditure on toiletries, skincare products", startDate,
-				endDate);
-		Expense exp6 = new Expense("Hobbies", 40.30,
-				"Costs associated with pursuing hobbies and recreational activities", startDate, endDate);
-		Expense exp7 = new Expense("New Tv", 500.40, "Purchased new TV", startDate, endDate);
-		Expense exp8 = new Expense("NetFlix", 15.75, "Monthly Netflix subscription", startDate, endDate);
+		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
+				LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 17));
+		
+		Expense exp2 = new Expense("Office Supplies", 6.34, "Purchase of essential office supplies",
+				LocalDate.of(2024, 1, 4), LocalDate.of(2024, 1, 4));
+		
+		Expense exp3 = new Expense("Travel Expense", 25.30, "Costs related to business travel",
+				LocalDate.of(2023, 11, 10), LocalDate.of(2023, 11, 17));
+		
+		Expense exp4 = new Expense("Dining Out", 70.85, "Cost of meals and snacks from restaurants",
+				LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 1));
+		
+		Expense exp5 = new Expense("Personal Care", 120.10, "Expenditure on toiletries, skincare products",
+				LocalDate.of(2024, 1, 3), LocalDate.of(2024, 1, 3));
+		
+		Expense exp6 = new Expense("Hobbies", 40.30, "Costs associated with pursuing hobbies and recreational activities",
+				LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 15));
+		
+		Expense exp7 = new Expense("New Tv", 500.40, "Purchased new TV", 
+				LocalDate.of(2024, 1, 13), LocalDate.of(2024, 1, 13));
+		
+		Expense exp8 = new Expense("NetFlix", 15.75, "Monthly Netflix subscription", 
+				LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 30));
 
 		Category cat1 = new Category("Technology");
 		Category cat2 = new Category("Leisure");
