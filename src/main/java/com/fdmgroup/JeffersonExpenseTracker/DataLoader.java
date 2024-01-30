@@ -9,7 +9,9 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Service;
 
-import com.fdmgroup.JeffersonExpenseTracker.Dal.UserRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Dao.CategoryRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
@@ -26,12 +28,16 @@ public class DataLoader implements ApplicationRunner {
 		// inject multiple repos here
 		// can use save all to put entries from array into repo
 	private UserRepository userRepo;
+	private CategoryRepository categoryRepo;
+	private ExpenseRepository expenseRepo;
 		
 		
 	@Autowired
-	public DataLoader(UserRepository userRepository) {
+	public DataLoader(UserRepository userRepository, CategoryRepository categoryRepository, ExpenseRepository expenseRepository) {
 		super();
 		this.userRepo = userRepository;
+		this.categoryRepo = categoryRepository;
+		this.expenseRepo = expenseRepository;
 	}
 
 	
@@ -106,7 +112,23 @@ public class DataLoader implements ApplicationRunner {
 		userRepo.save(user2);
 		userRepo.save(user3);
 		userRepo.save(user4);
-
+		
+		categoryRepo.save(cat1);
+		categoryRepo.save(cat2);
+		categoryRepo.save(cat3);
+		categoryRepo.save(cat4);
+		categoryRepo.save(cat5);
+		categoryRepo.save(cat6);
+		categoryRepo.save(cat7);
+		
+		expenseRepo.save(exp1);
+		expenseRepo.save(exp2);
+		expenseRepo.save(exp3);
+		expenseRepo.save(exp4);
+		expenseRepo.save(exp5);
+		expenseRepo.save(exp6);
+		expenseRepo.save(exp7);
+		expenseRepo.save(exp8);
 	
 
 	}

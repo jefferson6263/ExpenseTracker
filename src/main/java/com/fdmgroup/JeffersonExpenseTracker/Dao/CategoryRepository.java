@@ -1,18 +1,11 @@
-package com.fdmgroup.JeffersonExpenseTracker.Dal;
-
-import java.util.List;
+package com.fdmgroup.JeffersonExpenseTracker.Dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
+import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
-import jakarta.transaction.Transactional;
-
-@Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 //	List<User> findPartialMatch(String q);
 //	List<User> findByFavColor(String favColor);
@@ -26,3 +19,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //	@Transactional
 //	void deleteByFavColor(String favColor);
 }
+
+
