@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseExpcetion;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 @Service
@@ -25,12 +27,15 @@ public class UserService {
 
 	public User findById(int userId) {
 
-		return this.userRepo.findById(userId).orElseThrow(() -> new RuntimeException("user with id not found"));
+		return this.userRepo.findById(userId).orElseThrow(() -> new UserIdException("User with id " + userId + " not found"));
 	}
 
 	public void save(User newUser) {
-		this.userRepo.save(newUser);
-
+		if (userRepo.getAllEmails().contains(newUser.getEmail())) {
+			throw new EmailInUseExpcetion("The email " + newUser.getEmail() + " is already in use");
+		} else {
+			this.userRepo.save(newUser);
+		}
 	}
 
 	public void update(User newUser) {
@@ -40,7 +45,7 @@ public class UserService {
 			return;
 		}
 
-		throw new RuntimeException("must provide a user id for put mapping");
+		throw new UserIdException("Must provide a valid userId for updating");
 	}
 
 	public void deleteById(int userId) {

@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +33,7 @@ public class Expense {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonManagedReference
 	private User user;
 
 	@Column(name = "start_date")
@@ -40,6 +44,7 @@ public class Expense {
 
 	@ManyToMany
 	@JoinTable(name = "categorisation", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "expense_id"))
+	@JsonManagedReference
 	private List<Category> categories = new ArrayList<Category>();
 
 	public Expense(String name, double amount, String description, LocalDate startDate, LocalDate endDate) {

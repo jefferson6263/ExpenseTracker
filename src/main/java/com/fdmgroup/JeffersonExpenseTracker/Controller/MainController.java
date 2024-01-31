@@ -43,7 +43,6 @@ public class MainController {
 	
 	@GetMapping("users/{userId}")
 	public User findUserById(@PathVariable int userId) {
-		System.out.println("hello1");
 		return userService.findById(userId);
 	}
 
@@ -99,9 +98,9 @@ public class MainController {
 	}
 	// CRUD for categories
 	
-	@GetMapping("categories/{categorieId}")
-	public Category findCategoryById(@PathVariable int categoryId) {
-		return categoryService.findById(categoryId);
+	@GetMapping("categories/{categoriesId}")
+	public Category findCategoryById(@PathVariable int categoriesId) {
+		return categoryService.findById(categoriesId);
 	}
 	
 	@PostMapping("categories")
@@ -114,9 +113,9 @@ public class MainController {
 		categoryService.update(newCategory);
 	}
 	
-	@DeleteMapping("categories/{categorieId}")
-	public void deleteCategory(@PathVariable int categoryId) {
-		categoryService.deleteById(categoryId);
+	@DeleteMapping("categories/{categoriesId}")
+	public void deleteCategory(@PathVariable int categoriesId) {
+		categoryService.deleteById(categoriesId);
 	}
 	
 	@GetMapping("allcategories")

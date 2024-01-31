@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.CategoryRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.CategoryIdException;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
@@ -27,7 +29,7 @@ public class CategoryService {
 
 	public Category findById(int categoryId) {
 
-		return this.categoryRepo.findById(categoryId).orElseThrow(() -> new RuntimeException("user with id not found"));
+		return this.categoryRepo.findById(categoryId).orElseThrow(() -> new CategoryIdException("Category with id " + categoryId + " not found"));
 	}
 
 	public void save(Category newCategory) {
@@ -42,7 +44,7 @@ public class CategoryService {
 			return;
 		}
 
-		throw new RuntimeException("must provide a user id for put mapping");
+		throw new CategoryIdException("Must provide a valid categoryId for updating");
 	}
 
 	public void deleteById(int categoryId) {

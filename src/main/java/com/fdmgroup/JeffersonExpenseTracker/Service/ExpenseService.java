@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 
 @Service
@@ -26,7 +27,7 @@ public class ExpenseService {
 
 	public Expense findById(int expenseId) {
 
-		return this.expenseRepo.findById(expenseId).orElseThrow(() -> new RuntimeException("user with id not found"));
+		return this.expenseRepo.findById(expenseId).orElseThrow(() -> new ExpenseIdException("Expense with id " + expenseId + " not found"));
 	}
 
 	public void save(Expense newExpense) {
@@ -41,7 +42,7 @@ public class ExpenseService {
 			return;
 		}
 
-		throw new RuntimeException("must provide a user id for put mapping");
+		throw new ExpenseIdException("Must provide a valid expenseId for updating");
 	}
 
 	public void deleteById(int expenseId) {
