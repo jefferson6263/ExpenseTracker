@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseExpcetion;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseException;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
@@ -32,14 +32,14 @@ public class UserService {
 
 	public void save(User newUser) {
 		if (userRepo.getAllEmails().contains(newUser.getEmail())) {
-			throw new EmailInUseExpcetion("The email " + newUser.getEmail() + " is already in use");
+			throw new EmailInUseException("The email " + newUser.getEmail() + " is already in use");
 		} else {
 			this.userRepo.save(newUser);
 		}
 	}
 
 	public void update(User newUser) {
-
+		
 		if (userRepo.existsById(newUser.getId())) {
 			this.userRepo.save(newUser);
 			return;
@@ -49,7 +49,13 @@ public class UserService {
 	}
 
 	public void deleteById(int userId) {
-		this.userRepo.deleteById(userId);
+
+		if (userRepo.existsById(userId)) {
+			this.userRepo.deleteById(userId);
+			return;
+		}
+
+		throw new UserIdException("Must provide a valid userId for deleting");
 
 	}
 

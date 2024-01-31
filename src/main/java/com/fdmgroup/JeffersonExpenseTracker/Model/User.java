@@ -33,8 +33,7 @@ public class User {
 	@JsonBackReference
 	private List<Expense> expenses = new ArrayList<Expense>();
 
-	public User(String firstName, String lastName, String email, String username, String password,
-			List<Category> categories) {
+	public User(String firstName, String lastName, String email, String username, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;

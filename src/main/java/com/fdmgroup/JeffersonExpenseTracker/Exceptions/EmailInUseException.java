@@ -1,13 +1,13 @@
 package com.fdmgroup.JeffersonExpenseTracker.Exceptions;
 
-public class EmailInUseExpcetion extends RuntimeException {
+public class EmailInUseException extends RuntimeException {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public EmailInUseExpcetion (String message) {
+	public EmailInUseException (String message) {
 		super(message);
 	}
 }

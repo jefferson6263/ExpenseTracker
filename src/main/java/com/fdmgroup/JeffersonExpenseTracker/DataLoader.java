@@ -45,12 +45,12 @@ public class DataLoader implements ApplicationRunner {
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
 
-		List<Category> categories = new ArrayList<Category>();
+		
 
-		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123", categories);
-		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ", categories);
-		User user3 = new User("Mike", "Yao", "mikeyao@live.com", "mikeyao", "java23", categories);
-		User user4 = new User("Rachel", "Perry", "rachelperry@live.com", "rperry1", "moo89", categories);
+		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
+		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ");
+		User user3 = new User("Mike", "Yao", "mikeyao@live.com", "mikeyao", "java23");
+		User user4 = new User("Rachel", "Perry", "rachelperry@live.com", "rperry1", "moo89");
 
 		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
 				LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 17));
