@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 
-	@Query("SELECT e from Expense e WHERE e.user_id = (:userId)")
-	List<Expense> findExpensesByUserId(int userId);
-
+	@Query("SELECT e from Expense e WHERE e.user = :userId")
+	List<Expense> findExpensesByUserId(@Param("userId") int userId);
+	
+	
+ 
 //	List<User> findPartialMatch(String q);
 //	List<User> findByFavColor(String favColor);
 //	
