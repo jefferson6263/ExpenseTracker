@@ -30,9 +30,9 @@ public class User {
 	private String username;
 	private String password;
 
-	@OneToMany(mappedBy = "user")
-	@JsonManagedReference
-	private List<Expense> expenses = new ArrayList<Expense>();
+//	@OneToMany(mappedBy = "user")
+//	@JsonManagedReference
+//	private List<Expense> expenses = new ArrayList<Expense>();
 
 	public User(String firstName, String lastName, String email, String username, String password) {
 		super();
@@ -95,19 +95,25 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Expense> getExpenses() {
-		return expenses;
-	}
-
-	public void setExpenses(Expense expense) {
-		expense.setUser(this);
-		this.expenses.add(expense);
-	}
-
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", username=" + username + ", password=" + password + ", expenses=" + expenses + "]";
+				+ ", username=" + username + ", password=" + password + "]";
 	}
+
+//	public List<Expense> getExpenses() {
+//		return expenses;
+//	}
+//
+//	public void setExpenses(Expense expense) {
+//		expense.setUser(this);
+//		this.expenses.add(expense);
+//	}
+
+//	@Override
+//	public String toString() {
+//		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+//				+ ", username=" + username + ", password=" + password + ", expenses=" + expenses + "]";
+//	}
 
 }

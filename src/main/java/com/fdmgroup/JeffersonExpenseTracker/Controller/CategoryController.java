@@ -22,7 +22,6 @@ public class CategoryController {
 	@Autowired
 	public CategoryController(CategoryService categoryService) {
 		super();
-		
 		this.categoryService = categoryService;
 
 	}
