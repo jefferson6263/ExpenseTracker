@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
-import com.fdmgroup.JeffersonExpenseTracker.Model.User;
+
 
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 

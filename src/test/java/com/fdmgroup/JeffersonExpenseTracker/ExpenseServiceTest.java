@@ -2,7 +2,6 @@ package com.fdmgroup.JeffersonExpenseTracker;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -19,9 +18,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseException;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 import com.fdmgroup.JeffersonExpenseTracker.Service.ExpenseService;

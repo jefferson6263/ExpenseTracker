@@ -6,7 +6,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,9 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.CategoryRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.CategoryIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
-import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Service.CategoryService;
 
 

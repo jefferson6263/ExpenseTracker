@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,7 +31,7 @@ public class User {
 	private String password;
 
 	@OneToMany(mappedBy = "user")
-	@JsonBackReference
+	@JsonManagedReference
 	private List<Expense> expenses = new ArrayList<Expense>();
 
 	public User(String firstName, String lastName, String email, String username, String password) {
@@ -99,6 +100,7 @@ public class User {
 	}
 
 	public void setExpenses(Expense expense) {
+		expense.setUser(this);
 		this.expenses.add(expense);
 	}
 

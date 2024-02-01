@@ -8,6 +8,8 @@ public class JeffersonExpenseTrackerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JeffersonExpenseTrackerApplication.class, args);
+		System.out.println("_______________________________________");
 	}
 
 }
+ 

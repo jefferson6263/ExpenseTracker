@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseException;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
+import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 @Service
@@ -26,7 +27,7 @@ public class UserService {
 	}
 
 	public User findById(int userId) {
-
+		
 		return this.userRepo.findById(userId).orElseThrow(() -> new UserIdException("User with id " + userId + " not found"));
 
 	}
@@ -39,7 +40,6 @@ public class UserService {
 		}
 		
 		throw new UserIdException("Must provide a valid userId for deleting");
-
 	}
 
 	public void save(User newUser) {
@@ -56,10 +56,10 @@ public class UserService {
 			this.userRepo.save(newUser);
 			return;
 		}
-
 		throw new UserIdException("Must provide a valid userId for updating");
 	}
-
+	
+	
 	
 	
 	

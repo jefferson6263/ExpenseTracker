@@ -6,12 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.CategoryRepository;
-import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.CategoryIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
-import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 @Service
 public class CategoryService {

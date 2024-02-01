@@ -1,6 +1,7 @@
 package com.fdmgroup.JeffersonExpenseTracker.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 
 @Service
@@ -44,6 +44,9 @@ public class ExpenseService {
 	public void update(Expense newExpense) {
 
 		if (expenseRepo.existsById(newExpense.getId())) {
+			Expense e = expenseRepo.findById(newExpense.getId()).get();
+	
+			newExpense.setUser(e.getUser());
 			this.expenseRepo.save(newExpense);
 			return;
 		}

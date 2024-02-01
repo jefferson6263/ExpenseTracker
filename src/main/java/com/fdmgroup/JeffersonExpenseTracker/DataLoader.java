@@ -1,9 +1,7 @@
 package com.fdmgroup.JeffersonExpenseTracker;
 
-import java.sql.Timestamp;
+
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -16,11 +14,6 @@ import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
-
-
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 
 @Service
 public class DataLoader implements ApplicationRunner {
@@ -96,14 +89,14 @@ public class DataLoader implements ApplicationRunner {
 		exp8.setCategories(cat1);
 		exp8.setCategories(cat2);
 
-		user1.setExpenses(exp1);
-		user2.setExpenses(exp2);
-		user3.setExpenses(exp3);
-		user4.setExpenses(exp4);
-		user3.setExpenses(exp5);
-		user3.setExpenses(exp6);
-		user4.setExpenses(exp7);
-		user2.setExpenses(exp8);
+//		user1.setExpenses(exp1);
+//		user2.setExpenses(exp2);
+//		user3.setExpenses(exp3);
+//		user4.setExpenses(exp4);
+//		user3.setExpenses(exp5);
+//		user3.setExpenses(exp6);
+//		user4.setExpenses(exp7);
+//		user2.setExpenses(exp8);
 
 		exp1.setUser(user1);
 		exp2.setUser(user2);

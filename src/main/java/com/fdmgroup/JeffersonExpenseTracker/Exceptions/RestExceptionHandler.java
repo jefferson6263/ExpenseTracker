@@ -14,13 +14,13 @@ public class RestExceptionHandler {
 	@ExceptionHandler(CategoryIdException.class)
 	// The HTTP status you want associated - eg. 404 in this case
 	@ResponseStatus(HttpStatus.NOT_FOUND)
-	public ApiErrorResponse handle(CategoryIdException e) {
+	public ApiErrorResponse handle1(CategoryIdException e) {
 		return new ApiErrorResponse(e.getMessage());
 	}
 	
 	@ExceptionHandler(EmailInUseException.class)
 	@ResponseStatus(HttpStatus.IM_USED)
-	public ApiErrorResponse handle(EmailInUseException e) {
+	public ApiErrorResponse handle2(EmailInUseException e) {
 		return new ApiErrorResponse(e.getMessage());
 	}
 	
