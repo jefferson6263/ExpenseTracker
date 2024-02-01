@@ -28,6 +28,19 @@ public class UserService {
 	public User findById(int userId) {
 
 		return this.userRepo.findById(userId).orElseThrow(() -> new UserIdException("User with id " + userId + " not found"));
+
+	}
+	
+	
+	public void deleteById(int userId) {
+
+		if (userRepo.existsById(userId)) {
+			this.userRepo.deleteById(userId);
+			return;
+		}
+		
+		throw new UserIdException("Must provide a valid userId for deleting");
+
 	}
 
 	public void save(User newUser) {
@@ -48,17 +61,7 @@ public class UserService {
 		throw new UserIdException("Must provide a valid userId for updating");
 	}
 
-	public void deleteById(int userId) {
-
-		if (userRepo.existsById(userId)) {
-			this.userRepo.deleteById(userId);
-			return;
-		}
-
-		throw new UserIdException("Must provide a valid userId for deleting");
-
-	}
-
-
-
+	
+	
+	
 }

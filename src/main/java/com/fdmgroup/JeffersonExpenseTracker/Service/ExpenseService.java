@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
+import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 
 @Service
@@ -25,10 +26,15 @@ public class ExpenseService {
 		return this.expenseRepo.findAll();
 	}
 
-	public Expense findById(int expenseId) {
+	public Expense findByExpenseId(int expenseId) {
 
 		return this.expenseRepo.findById(expenseId).orElseThrow(() -> new ExpenseIdException("Expense with id " + expenseId + " not found"));
 	}
+	
+	public List<Expense> findUserExpenses(int userId) {
+		return this.expenseRepo.findExpensesByUserId(userId);
+	}
+	
 
 	public void save(Expense newExpense) {
 		this.expenseRepo.save(newExpense);
@@ -46,7 +52,15 @@ public class ExpenseService {
 	}
 
 	public void deleteById(int expenseId) {
-		this.expenseRepo.deleteById(expenseId);
+
+		if (expenseRepo.existsById(expenseId)) {
+			this.expenseRepo.deleteById(expenseId);
+			return;
+		}
+		
+		throw new ExpenseIdException("Must provide a valid userId for deleting");
 
 	}
+	
+	
 }

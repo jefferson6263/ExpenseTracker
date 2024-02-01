@@ -24,7 +24,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseException;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.UserIdException;
-import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 import com.fdmgroup.JeffersonExpenseTracker.Service.UserService;
 
@@ -53,7 +52,7 @@ public class UserServiceTest {
 	}
 	
 	@Test
-	void save_multiple_user_test() {
+	void save_multiple_users_test() {
 		
 
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
@@ -130,7 +129,6 @@ public class UserServiceTest {
 	@Test
 	void find_user_by_id_fail_test() {
 
-
 		assertThrows(UserIdException.class, () -> userService.findById(1));
 		verify(userRepo, times(1)).findById(1);
 	}
@@ -139,11 +137,12 @@ public class UserServiceTest {
 	void update_user_test() {
 		
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
-
-		when(userRepo.existsById(0)).thenReturn(true);
+		user1.setId(1);
+		
+		when(userRepo.existsById(1)).thenReturn(true);
 		userService.update(user1);
 		
-		verify(userRepo, times(1)).existsById(0);
+		verify(userRepo, times(1)).existsById(1);
 		verify(userRepo, times(1)).save(user1);
 
 	}
@@ -152,15 +151,18 @@ public class UserServiceTest {
 	void update_user_fail_test() {
 		
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
-		when(userRepo.existsById(0)).thenReturn(false);
+		user1.setId(1);
+		
+		when(userRepo.existsById(1)).thenReturn(false);
 		
 		assertThrows(UserIdException.class, () -> userService.update(user1));
-		verify(userRepo, times(1)).existsById(0);
+		verify(userRepo, times(1)).existsById(1);
 		verify(userRepo, times(0)).save(user1);
 	}
 	
 	@Test
 	void delete_user_test() {
+		
 		when(userRepo.existsById(1)).thenReturn(true);
 		
 		userService.deleteById(1);
@@ -176,7 +178,7 @@ public class UserServiceTest {
 		when(userRepo.existsById(1)).thenReturn(false);
 		
 		assertThrows(UserIdException.class, () -> userService.deleteById(1));
-		verify(userRepo, times(1)).existsById(0);
+		verify(userRepo, times(1)).existsById(1);
 		verify(userRepo, times(0)).deleteById(1);
 	}
 	
