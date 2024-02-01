@@ -58,7 +58,7 @@ public class ExpenseService {
 			return;
 		}
 		
-		throw new ExpenseIdException("Must provide a valid userId for deleting");
+		throw new ExpenseIdException("Must provide a valid expenseId for deleting");
 
 	}
 	

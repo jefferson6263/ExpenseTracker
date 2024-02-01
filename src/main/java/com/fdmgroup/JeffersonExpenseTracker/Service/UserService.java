@@ -31,7 +31,6 @@ public class UserService {
 
 	}
 	
-	
 	public void deleteById(int userId) {
 
 		if (userRepo.existsById(userId)) {
