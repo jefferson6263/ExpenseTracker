@@ -74,7 +74,7 @@ public class MainController {
 	
 	@GetMapping("expenses/{expenseId}")
 	public Expense findExpenseById(@PathVariable int expenseId) {
-		return expenseService.findById(expenseId);
+		return expenseService.findByExpenseId(expenseId);
 	}
 	
 	@PostMapping("expenses")
@@ -100,7 +100,7 @@ public class MainController {
 	
 	@GetMapping("categories/{categoriesId}")
 	public Category findCategoryById(@PathVariable int categoriesId) {
-		return categoryService.findById(categoriesId);
+		return categoryService.findByCategoryId(categoriesId);
 	}
 	
 	@PostMapping("categories")

@@ -27,7 +27,7 @@ public class CategoryService {
 		return this.categoryRepo.findAll();
 	}
 
-	public Category findById(int categoryId) {
+	public Category findByCategoryId(int categoryId) {
 
 		return this.categoryRepo.findById(categoryId).orElseThrow(() -> new CategoryIdException("Category with id " + categoryId + " not found"));
 	}
