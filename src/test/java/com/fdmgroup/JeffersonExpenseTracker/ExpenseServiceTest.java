@@ -197,16 +197,16 @@ public class ExpenseServiceTest {
 		List<Expense> user1Expenses = new ArrayList<>();
 		List<Expense> user2Expenses = new ArrayList<>();
 		
-		user1.setExpenses(exp1);
-		user1.setExpenses(exp6);
-		user1.setExpenses(exp3);
+//		user1.setExpenses(exp1);
+//		user1.setExpenses(exp6);
+//		user1.setExpenses(exp3);
 		user1Expenses.add(exp1);
 		user1Expenses.add(exp6);
 		user1Expenses.add(exp3);
 		
-		user2.setExpenses(exp2);
-		user2.setExpenses(exp4);
-		user2.setExpenses(exp5);
+//		user2.setExpenses(exp2);
+//		user2.setExpenses(exp4);
+//		user2.setExpenses(exp5);
 		user2Expenses.add(exp2);
 		user2Expenses.add(exp4);
 		user2Expenses.add(exp5);
@@ -229,13 +229,18 @@ public class ExpenseServiceTest {
 	@Test
 	void update_expense_test() {
 
+		Optional<Expense> exp1 = Optional.of(new Expense(" Personal Care", 120.10, "not updated",
+				LocalDate.of(2024, 1, 3), LocalDate.of(2024, 1, 3)));
 		
 		Expense updatedExp1 = new Expense("Updated Personal Care", 120.10, "updated",
 				LocalDate.of(2024, 1, 3), LocalDate.of(2024, 1, 3));
 		
 		updatedExp1.setId(1);
 		
+		
 		when(expenseRepo.existsById(1)).thenReturn(true);
+		when(expenseRepo.findById(1)).thenReturn(exp1);
+		
 		expenseService.update(updatedExp1);
 
 		verify(expenseRepo, times(1)).existsById(1);

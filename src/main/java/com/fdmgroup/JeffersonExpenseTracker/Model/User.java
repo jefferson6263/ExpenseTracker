@@ -1,16 +1,16 @@
 package com.fdmgroup.JeffersonExpenseTracker.Model;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+
 
 @Entity
 public class User {
@@ -30,16 +30,16 @@ public class User {
 	private String username;
 	private String password;
 
-//	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //	@JsonManagedReference
-//	private List<Expense> expenses = new ArrayList<Expense>();
+	private List<Expense> expenses = new ArrayList<Expense>();
 
 	public User(String firstName, String lastName, String email, String username, String password) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.username = username;
+		this.username = username; 
 		this.password = password;
 	}
 
@@ -100,7 +100,7 @@ public class User {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", username=" + username + ", password=" + password + "]";
 	}
-
+	
 //	public List<Expense> getExpenses() {
 //		return expenses;
 //	}
@@ -109,7 +109,7 @@ public class User {
 //		expense.setUser(this);
 //		this.expenses.add(expense);
 //	}
-
+//
 //	@Override
 //	public String toString() {
 //		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email

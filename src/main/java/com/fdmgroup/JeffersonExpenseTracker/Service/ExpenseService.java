@@ -45,7 +45,6 @@ public class ExpenseService {
 
 		if (expenseRepo.existsById(newExpense.getId())) {
 			Expense e = expenseRepo.findById(newExpense.getId()).get();
-	
 			newExpense.setUser(e.getUser());
 			this.expenseRepo.save(newExpense);
 			return;

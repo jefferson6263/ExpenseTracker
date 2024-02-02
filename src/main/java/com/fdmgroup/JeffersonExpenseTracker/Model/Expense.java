@@ -4,9 +4,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,17 +24,16 @@ import jakarta.persistence.ManyToOne;
 public class Expense {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue 
 	@Column(name = "expense_id")
 	private int id;
 
 	private String name;
 	private double amount;
 	private String description;
-
-	@ManyToOne
+ 
+	@ManyToOne()
 	@JoinColumn(name = "user_id")
-	//@JsonBackReference
 	private User user;
 
 	@Column(name = "start_date")
@@ -39,7 +42,7 @@ public class Expense {
 	@Column(name = "end_name")
 	private LocalDate endDate;
 
-	@ManyToMany
+	@ManyToMany()
 	@JoinTable(name = "categorisation", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "expense_id"))
 	@JsonManagedReference
 	private List<Category> categories = new ArrayList<Category>();

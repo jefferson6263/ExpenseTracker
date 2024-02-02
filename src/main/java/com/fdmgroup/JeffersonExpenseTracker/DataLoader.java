@@ -18,9 +18,6 @@ import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 @Service
 public class DataLoader implements ApplicationRunner {
 	
-	//private WebApplicationContext context;
-		// inject multiple repos here
-		// can use save all to put entries from array into repo
 	private UserRepository userRepo;
 	private CategoryRepository categoryRepo;
 	private ExpenseRepository expenseRepo;
@@ -37,8 +34,6 @@ public class DataLoader implements ApplicationRunner {
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-
-		
 
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
 		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ");

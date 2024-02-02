@@ -24,7 +24,8 @@ public class Category {
 	@ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)
 	@JsonBackReference
 	private List<Expense> expenses = new ArrayList<Expense>();
-
+	
+	
 	public Category(String name) {
 		super();
 		this.name = name;
