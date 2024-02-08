@@ -14,33 +14,16 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '../Fonts/Fonts.css';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
-const defaultTheme = createTheme({
-    palette: {
-      background: {
-        default : "#e3f2fd",
-      } 
-    },
-  });
 
 export default function SignUp() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
+
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -48,7 +31,7 @@ export default function SignUp() {
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+  
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -143,6 +126,6 @@ export default function SignUp() {
         </Box>
         {/* <Copyright sx={{ mt: 5 }} /> */}
       </Container>
-    </ThemeProvider>
+  
   );
 }

@@ -14,6 +14,7 @@ import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
+import com.fdmgroup.JeffersonExpenseTracker.Service.UserService;
 
 @Service
 public class DataLoader implements ApplicationRunner {
@@ -21,14 +22,17 @@ public class DataLoader implements ApplicationRunner {
 	private UserRepository userRepo;
 	private CategoryRepository categoryRepo;
 	private ExpenseRepository expenseRepo;
-		
+	private UserService userService;
+	
 		
 	@Autowired
-	public DataLoader(UserRepository userRepository, CategoryRepository categoryRepository, ExpenseRepository expenseRepository) {
+	public DataLoader(UserRepository userRepository, CategoryRepository categoryRepository, ExpenseRepository expenseRepository, UserService userService) {
 		super();
 		this.userRepo = userRepository;
 		this.categoryRepo = categoryRepository;
 		this.expenseRepo = expenseRepository;
+		this.userService = userService;
+		
 	}
 
 	
@@ -102,10 +106,15 @@ public class DataLoader implements ApplicationRunner {
 		exp7.setUser(user4);
 		exp8.setUser(user2);
 		
-		userRepo.save(user1);
-		userRepo.save(user2);
-		userRepo.save(user3);
-		userRepo.save(user4);
+//		userRepo.save(user1);
+//		userRepo.save(user2);
+//		userRepo.save(user3);
+//		userRepo.save(user4);
+		
+		userService.register(user1);
+		userService.register(user2);
+		userService.register(user3);
+		userService.register(user4);
 		
 		categoryRepo.save(cat1);
 		categoryRepo.save(cat2);

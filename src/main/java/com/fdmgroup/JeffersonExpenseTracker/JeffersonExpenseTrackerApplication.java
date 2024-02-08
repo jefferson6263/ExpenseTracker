@@ -2,7 +2,11 @@ package com.fdmgroup.JeffersonExpenseTracker;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
+import com.fdmgroup.JeffersonExpenseTracker.Security.RsaKeyProperties;
+
+@EnableConfigurationProperties(RsaKeyProperties.class)
 @SpringBootApplication
 public class JeffersonExpenseTrackerApplication {
 

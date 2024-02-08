@@ -36,7 +36,7 @@ public class UserServiceTest {
 	@BeforeEach
 	void setup() {
 		
-		this.userService = new UserService(userRepo);
+		this.userService = new UserService(userRepo, null);
 
 	}
 	
