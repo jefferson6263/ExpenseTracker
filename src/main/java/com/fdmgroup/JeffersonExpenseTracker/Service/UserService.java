@@ -34,6 +34,12 @@ public class UserService {
 
 	}
 	
+	public User findByEmail(String email) {
+		
+		return this.userRepo.findByEmail(email).orElseThrow(() -> new UserIdException("User with id " + email + " not found"));
+
+	}
+	
 	public void deleteById(int userId) {
 
 		if (userRepo.existsById(userId)) {

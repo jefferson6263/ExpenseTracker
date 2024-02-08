@@ -5,14 +5,22 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
+import Alert from '@mui/material/Alert';
+import { Link } from 'react-router-dom';
+
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 // import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Grow } from '@mui/material';
 import '../Fonts/Fonts.css';
+import axios from 'axios'
+import { useNavigate } from "react-router-dom"
+import { useState } from 'react';
+
+
 
 
 
@@ -20,20 +28,65 @@ import '../Fonts/Fonts.css';
 
 
 export default function SignUp() {
+
+  const navigate = useNavigate();
+  const [emailExist, setemailExist] = useState(false);
+  const [validEmailForm, setvalidEmailForm] = useState(true);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+    setemailExist(false)
     const data = new FormData(event.currentTarget);
 
-    console.log({
+    const newUser = {
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
       email: data.get('email'),
+      username: data.get('username'),
       password: data.get('password'),
-    });
+    }
+
+    console.log({
+      
+      firstName: data.get('firstName'),
+      lastName: data.get('lastName'),
+      email: data.get('email'),
+      username: data.get('username'),
+      password: data.get('password'),
+    })
+
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (emailRegex.test(data.get('email'))) {
+      console.log("valid")
+      const endpoint1 = "http://localhost:8088/expensetracker/getuserbyemail/" + data.get('email')
+
+      axios.get(endpoint1).catch(function (error) {
+        console.clear()
+        const endpoint2 = "http://localhost:8088/expensetracker/users"
+        axios.post(endpoint2, newUser)
+        navigate("/")
+      })
+
+      setemailExist(true)
+    } else {
+    
+      setvalidEmailForm(false)
+    }
+
+    
+
+
   };
 
   return (
   
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
+        <Grow 
+          in={true}
+          style={{ transformOrigin: '0 5 0' }}
+          {...({ timeout: 1000 })}
+        > 
         <Box
           sx={{
             marginTop: 8,
@@ -64,7 +117,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  sx={{fontFamily: "Lexend", }}
+                
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -77,7 +130,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                 />
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12} sx={{padding: 1,}} >
                 <TextField
                   required
                   fullWidth
@@ -85,6 +138,22 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  
+                />
+                {emailExist && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>This email is already in use.</Alert>}
+                {!validEmailForm && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>Not a valid email.</Alert>}
+              </Grid>
+
+              
+
+              <Grid item xs={12} >
+                <TextField
+                  required
+                  fullWidth
+                  id="userName"
+                  label="Username"
+                  name="username"
+                  autoComplete="username"
                   
                 />
               </Grid>
@@ -117,14 +186,15 @@ export default function SignUp() {
             </Button>
             <Grid container justifyContent="flex-end" direction="column">
               <Grid item>
-                <Link href="#" variant="body2" fontFamily={"Lexend"}>
+                <Link to="/" variant="body2" fontFamily={"Lexend"}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        {/* <Copyright sx={{ mt: 5 }} /> */}
+        </Grow>
+        
       </Container>
   
   );

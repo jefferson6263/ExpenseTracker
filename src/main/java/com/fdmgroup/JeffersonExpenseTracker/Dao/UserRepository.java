@@ -25,4 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 //	void deleteByFavColor(String favColor);
 	@Query("SELECT u from User u where u.username like :username")
 	Optional<User> findByUsername(@Param("username") String username);
+	
+	@Query("SELECT u from User u where u.email like :email")
+	Optional<User> findByEmail(@Param("email")String email);
 }

@@ -8,6 +8,7 @@ import SignIn from './Pages/SignInPage.jsx'
 import SignUp from './Pages/SignUpPage.jsx'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+
 function App() {
   // pass into apges whjich need authentication
   const [bearer, setBearer] = useState("")
@@ -25,6 +26,7 @@ function App() {
       <div>
      
       <ThemeProvider theme={defaultTheme} >
+      <CssBaseline />
         <Routes>
           <Route path="/" element ={<SignIn />}/>
           <Route path="/signup" element ={<SignUp />}/>
