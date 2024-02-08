@@ -47,7 +47,7 @@ public class UserControllerTest {
 	void createUser_test() {
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
 		userController.createUser(user1);
-		verify(userService, times(1)).save(user1);
+		verify(userService, times(1)).register(user1);
 	}
 	
 	@Test

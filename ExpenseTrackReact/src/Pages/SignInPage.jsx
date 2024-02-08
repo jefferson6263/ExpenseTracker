@@ -49,7 +49,7 @@ const box = (
       backgroundColor: 'white',
       borderRadius: 8,
       padding: 6,
-      boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+      boxShadow: '8px 8px 25px rgba(0, 0, 0, 0.2)',
       className: 'box',
     }} 
     
@@ -90,7 +90,7 @@ const box = (
       </Button>
       <Grid container direction="column">
         <Grid item xs>
-          <Link href="#" variant="body2">
+          <Link to="/forgotpassword" variant="body2">
             Forgot password?
           </Link>
         </Grid>

@@ -1,30 +1,24 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
+
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
+
 import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import { Grow } from '@mui/material';
 import '../Fonts/Fonts.css';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
 
-
-
-
-
-// TODO remove, this demo shouldn't need to reset the theme.
 
 
 export default function SignUp() {
@@ -96,16 +90,13 @@ export default function SignUp() {
             backgroundColor: 'white',
             borderRadius: 8,
             padding: 6,
-            boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+            boxShadow: '8px 8px 25px rgba(0, 0, 0, 0.2)',
           }}
         >
-          {/* <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar> */}
           <Typography component="h1" variant="h5" fontFamily={"Lexend"}>
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}} >
+          <Box component="form" noValidate onSubmit={handleSubmit} onChange={()=>setemailExist(true)} sx={{ mt: 3}} >
             <Grid container spacing={2} >
                 
               <Grid item xs={12} sm={6}>
@@ -143,9 +134,6 @@ export default function SignUp() {
                 {emailExist && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>This email is already in use.</Alert>}
                 {!validEmailForm && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>Not a valid email.</Alert>}
               </Grid>
-
-              
-
               <Grid item xs={12} >
                 <TextField
                   required

@@ -61,6 +61,7 @@ public class UserService {
 	public void update(User newUser) {
 		
 		if (userRepo.existsById(newUser.getId())) {
+			newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 			this.userRepo.save(newUser);
 			return;
 		}

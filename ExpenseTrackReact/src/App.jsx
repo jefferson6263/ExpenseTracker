@@ -8,6 +8,7 @@ import SignIn from './Pages/SignInPage.jsx'
 import SignUp from './Pages/SignUpPage.jsx'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import ForgotPassword from './Pages/ForgotPasswordPage.jsx'
 
 function App() {
   // pass into apges whjich need authentication
@@ -30,6 +31,7 @@ function App() {
         <Routes>
           <Route path="/" element ={<SignIn />}/>
           <Route path="/signup" element ={<SignUp />}/>
+          <Route path="/forgotpassword" element ={<ForgotPassword />}/>
         </Routes>
       </ThemeProvider>
 
