@@ -18,14 +18,27 @@ import '../Fonts/Fonts.css';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
+import { useEffect } from 'react';
 
 
 
-export default function SignUp() {
+
+
+const SignUp = () => {
+
 
   const navigate = useNavigate();
   const [emailExist, setemailExist] = useState(false);
   const [validEmailForm, setvalidEmailForm] = useState(true);
+
+  const [firstNameError, setFirstNameError] = useState(false);
+  const [lastNameError, setLastNameError] = useState(false);
+  const [usernameError, setUsernameError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+
+
+  
+
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -51,27 +64,59 @@ export default function SignUp() {
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-    if (emailRegex.test(data.get('email'))) {
-      console.log("valid")
+    const newFirstNameError = data.get("firstName").trim() === "";
+    const newLastNameError = data.get('lastName').trim() === "";
+    const newUsernameError = data.get('username').trim() === "";
+    const newPasswordError = data.get('password').trim() === "";
+    const newValidEmailForm = emailRegex.test(data.get('email'));
+
+    setFirstNameError(newFirstNameError);
+    setLastNameError(newLastNameError);
+    setUsernameError(newUsernameError);
+    setPasswordError(newPasswordError);
+    setvalidEmailForm(validEmailForm);
+   
+   
+    
+    // console.log("beans");
+    // console.log("firstNameError:", firstNameError);
+    // console.log("lastNameError:", lastNameError);
+    // console.log("usernameError:", usernameError);
+    // console.log("passwordError:", passwordError);
+
+    // might have to split
+    if (newValidEmailForm) {
+      console.log("form is good")
       const endpoint1 = "http://localhost:8088/expensetracker/getuserbyemail/" + data.get('email')
 
-      axios.get(endpoint1).catch(function (error) {
-        console.clear()
-        const endpoint2 = "http://localhost:8088/expensetracker/users"
-        axios.post(endpoint2, newUser)
-        navigate("/")
+  
+
+      axios.get(endpoint1).then(() => {setemailExist(true)}).catch(function () {
+         
+        if (!newFirstNameError && !newLastNameError && !newUsernameError && !newPasswordError) {
+        
+          const endpoint2 = "http://localhost:8088/expensetracker/users"
+          axios.post(endpoint2, newUser)
+          navigate("/")
+          
+        } 
+
       })
 
-      setemailExist(true)
+      
     } else {
-    
       setvalidEmailForm(false)
     }
 
-    
+
+  
 
 
   };
+
+
+  
+
 
   return (
   
@@ -96,10 +141,10 @@ export default function SignUp() {
           <Typography component="h1" variant="h5" fontFamily={"Lexend"}>
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} onChange={()=>setemailExist(true)} sx={{ mt: 3}} >
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}} >
             <Grid container spacing={2} >
                 
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} onChange={()=>setFirstNameError(false)}>
                 <TextField
                   autoComplete="given-name"
                   name="firstName" 
@@ -108,10 +153,12 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                
+                  error={firstNameError}
+                  {...firstNameError && {helperText:"First name required"}}
                 />
+                
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} sm={6} onChange={()=>setLastNameError(false)}>
                 <TextField
                   required
                   fullWidth
@@ -119,9 +166,11 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  error={lastNameError}
+                  {...lastNameError && {helperText:"Last name required"}}
                 />
               </Grid>
-              <Grid item xs={12} sx={{padding: 1,}} >
+              <Grid item xs={12} sx={{padding: 1,}} onChange={()=>{setemailExist(false); setvalidEmailForm(true)}}>
                 <TextField
                   required
                   fullWidth
@@ -129,12 +178,13 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  error={emailExist || !validEmailForm}
                   
                 />
                 {emailExist && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>This email is already in use.</Alert>}
                 {!validEmailForm && <Alert severity="warning" sx={{padding: 1, display: 'flex', justifyContent: 'center' }}>Not a valid email.</Alert>}
               </Grid>
-              <Grid item xs={12} >
+              <Grid item xs={12} onChange={()=>setUsernameError(false)}>
                 <TextField
                   required
                   fullWidth
@@ -142,10 +192,11 @@ export default function SignUp() {
                   label="Username"
                   name="username"
                   autoComplete="username"
-                  
+                  error={usernameError}
+                  {...usernameError && {helperText:"Username required"}}
                 />
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12} onChange={()=>setPasswordError(false)}>
                 <TextField
                   required
                   fullWidth
@@ -154,6 +205,9 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  error={passwordError}
+                  {...passwordError && {helperText:"Password required"}}
+                  
                 />
               </Grid>
               <Grid item xs={12}>
@@ -168,7 +222,7 @@ export default function SignUp() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              
+             
             >
               Sign Up
             </Button>
@@ -187,3 +241,5 @@ export default function SignUp() {
   
   );
 }
+
+export default SignUp

@@ -16,7 +16,7 @@ import { Switch } from '@mui/material';
 import { useState } from 'react';
 import { useEffect } from 'react'; 
 import { Grow } from '@mui/material';
-
+import { useNavigate } from "react-router-dom"
 
 
 
@@ -27,8 +27,9 @@ import { Grow } from '@mui/material';
 
 const ForgotPassword = () => {
     const [emailExist, setemailExist] = useState(true);
-    const [user, setUser]  = useState([])
- 
+    const navigate = useNavigate();
+
+    
     const handleSubmit = (event) => {
     
         event.preventDefault();
@@ -50,23 +51,21 @@ const ForgotPassword = () => {
 
         if (emailExist) {
             console.log("exist")
-            
-          
+
             result.then(function (response) {
-              // Handle success
+              
               const user = response.data
               console.log(user);
               console.log(user["password"]);
+
               user["password"] = data.get('password')
               console.log(user["password"]);
+
+              const endpoint2 = "http://localhost:8088/expensetracker/users" 
+              axios.put(endpoint2, user)
+              navigate("/")
             })
-            
-            const endpoint2 = "http://localhost:8088/expensetracker/users" 
-            axios.put(endpoint2, user).then(console.log("hi"))
-            
-           
-            // NOTE TO FUTURE JEFFERY WRITE METHOD THAT UPDATERS ONLY PASSWORD
-            // ITS NAP TIME FOR CURRENT JEFF
+ 
         }
     
     }

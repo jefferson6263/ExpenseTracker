@@ -36,7 +36,7 @@ public class UserService {
 	
 	public User findByEmail(String email) {
 		
-		return this.userRepo.findByEmail(email).orElseThrow(() -> new UserIdException("User with id " + email + " not found"));
+		return this.userRepo.findByEmail(email).orElseThrow(() -> new UserIdException("User with email " + email + " not found"));
 
 	}
 	
