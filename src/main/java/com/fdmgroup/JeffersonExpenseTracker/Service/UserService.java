@@ -3,6 +3,7 @@ package com.fdmgroup.JeffersonExpenseTracker.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -72,6 +73,12 @@ public class UserService {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		System.out.println(user.getPassword());
 		this.userRepo.save(user);
+	}
+
+	public User findUserByToken(Authentication auth) {
+		// TODO Auto-generated method stub
+		System.out.println(findByEmail(auth.getName()));
+		return findByEmail(auth.getName());
 	}
 	
 	

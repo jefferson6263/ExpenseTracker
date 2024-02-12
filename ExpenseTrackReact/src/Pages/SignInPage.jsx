@@ -7,40 +7,71 @@ import { Link } from 'react-router-dom';
 
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useNavigate } from 'react-router-dom';
 import '../Fonts/Fonts.css';
-import { Switch } from '@mui/material';
+
 import { useState } from 'react';
-import { useEffect } from 'react'; 
+import axios from 'axios';
 import { Grow } from '@mui/material';
+import { Alert } from '@mui/material';
 
 
 
 
-const handleSubmit = (event) => {
-  event.preventDefault();
-  const data = new FormData(event.currentTarget);
 
-  const signInOptions = {
-    auth:{
-      username:data.get('email'),
-      password:data.get('password')
-    }
+
+
+
+
+const SignInPage = (props) => {
+  const [bearer, setBearer] = props.bearer
+  const [loginCred, setloginCred] = useState(false)
+  const navigate = useNavigate();
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+  
+    const requestOptions = {
+      auth:{
+          username:data.get('email'),
+          password:data.get('password')
+      }
   }
 
-  console.log({
-    email: data.get('email'),
-    password: data.get('password'),
-  });
+  
+    console.log({
+      username: data.get('email'),
+      password: data.get('password'),
+    })
 
+    axios.post("http://localhost:8088/expensetracker/auth/login",{},requestOptions)
+            .then(response=>{
+                setBearer("Bearer " + response.data)
+                console.log(response)
+                navigate("/homepage")
+            }).catch(function () {setloginCred(true)})
 
-}
+    
 
-const box = (
-  <Box
+  
+  
+  }
+  
+   
+  return (
+
+      <Container component="main" maxWidth="xs" > 
+
+        <Grow 
+          in={true}
+          style={{ transformOrigin: '0 5 0' }}
+          {...({ timeout: 1000 })}
+        > 
+         <Box
     sx={{
       marginTop: 8,
       display: 'flex',
@@ -64,7 +95,7 @@ const box = (
         required 
         fullWidth
         id="email"
-        label="Email Address"
+        label="Email"
         name="email"
         autoComplete="email"
         autoFocus
@@ -79,7 +110,7 @@ const box = (
         id="password"
         autoComplete="current-password"
       />
-
+      {loginCred && <Alert severity="warning">Your username or password was incorrect. Please try again.</Alert>}
       <Button
         type="submit"
         fullWidth
@@ -102,47 +133,6 @@ const box = (
       </Grid>
     </Box>
   </Box>
-);
-
-const defaultTheme = createTheme({
-  palette: {
-    background: {
-      default : "#e3f2fd",
-    } 
-  },
-});
-
-const SignInPage = () => {
-// function SignInPage() {
-
-  // const signInOptions = {
-  //   auth:{
-  //     username:username,
-  //     password:password
-  //   }
-  // }
-
-
-  // const [checked, setChecked] = useState(true) 
-
-  // useEffect(() => {
-  //   setChecked(true);
-  // },[]);
-
- 
-  console.log(defaultTheme)
-  console.log(defaultTheme.palette)
-   
-  return (
-
-      <Container component="main" maxWidth="xs" > 
-
-        <Grow 
-          in={true}
-          style={{ transformOrigin: '0 5 0' }}
-          {...({ timeout: 1000 })}
-        > 
-        {box}
         </Grow>
 
       </Container>

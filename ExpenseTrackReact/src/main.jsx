@@ -4,13 +4,19 @@ import App from './App.jsx'
 import './index.css'
 import { BrowserRouter } from 'react-router-dom'
 
-ReactDOM.createRoot(document.getElementById('root')).render(
- 
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
- <React.StrictMode>
-<BrowserRouter>
-  <App />
-</BrowserRouter>
-</React.StrictMode>, 
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  
+
+  <React.StrictMode>
+      
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+   
+  </React.StrictMode>, 
   
 )

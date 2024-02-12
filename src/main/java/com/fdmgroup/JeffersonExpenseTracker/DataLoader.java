@@ -43,6 +43,7 @@ public class DataLoader implements ApplicationRunner {
 		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ");
 		User user3 = new User("Mike", "Yao", "mikeyao@live.com", "mikeyao", "java23");
 		User user4 = new User("Rachel", "Perry", "rachelperry@live.com", "rperry1", "moo89");
+		User user5 = new User("a", "a", "a", "a", "a");
 
 		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
 				LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 17));
@@ -115,6 +116,7 @@ public class DataLoader implements ApplicationRunner {
 		userService.register(user2);
 		userService.register(user3);
 		userService.register(user4);
+		userService.register(user5);
 		
 		categoryRepo.save(cat1);
 		categoryRepo.save(cat2);

@@ -18,10 +18,6 @@ import '../Fonts/Fonts.css';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
-import { useEffect } from 'react';
-
-
-
 
 
 const SignUp = () => {
@@ -75,16 +71,7 @@ const SignUp = () => {
     setUsernameError(newUsernameError);
     setPasswordError(newPasswordError);
     setvalidEmailForm(validEmailForm);
-   
-   
-    
-    // console.log("beans");
-    // console.log("firstNameError:", firstNameError);
-    // console.log("lastNameError:", lastNameError);
-    // console.log("usernameError:", usernameError);
-    // console.log("passwordError:", passwordError);
 
-    // might have to split
     if (newValidEmailForm) {
       console.log("form is good")
       const endpoint1 = "http://localhost:8088/expensetracker/getuserbyemail/" + data.get('email')
@@ -113,9 +100,6 @@ const SignUp = () => {
 
 
   };
-
-
-  
 
 
   return (
