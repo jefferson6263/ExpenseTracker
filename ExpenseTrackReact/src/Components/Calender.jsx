@@ -1,15 +1,41 @@
 import * as React from 'react';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import TextField from '@mui/material/TextField';
+import { StaticDatePicker } from '@mui/x-date-pickers';
+import { Zoom } from '@mui/material';
+import { Box } from '@mui/material';
 
-const BasicDateCalendar = (props) => {
+
+const StaticDatePickerLandscape = (props) => {
+  const [value, setValue] = React.useState(new Date());
+
   return (
+      <Zoom in={true}>
+      <div style={{ width: 500, height: 400}}>
 
-      <DateCalendar />
-   
+      <StaticDatePicker
+        orientation="landscape"
+        openTo="day"
+        format="MM/dd/yyyy"
+
+
+        onChange={(newValue) => {
+          setValue(newValue);
+        }}
+        
+        // renderInput={(params) => <TextField {...params} />}
+
+        sx={{
+       
+          width: '100%', height: '100%'
+        }}
+
+        onAccept={() => {console.log(value)}}
+      />
+  
+      </div>
+      </Zoom>
+  
   );
 }
 
-
-export default BasicDateCalendar;
+export default StaticDatePickerLandscape

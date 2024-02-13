@@ -12,22 +12,26 @@
   "dependencies": {
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
-    "@mui/core": "5.0.0-alpha.54",
-    "@mui/material": "^5.15.7",
+    "@mui/base": "5.0.0-beta.36",
+    "@mui/icons-material": "^5.15.10",
+    "@mui/material": "^5.15.10",
+    "@mui/x-date-pickers": "^6.19.4",
+    "@mui/x-date-pickers-pro": "^6.19.4",
     "date-fns": "^3.3.1",
+    "dayjs": "^1.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.0",
     "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
-    "@types/react": "^18.2.43",
-    "@types/react-dom": "^18.2.17",
-    "@vitejs/plugin-react-swc": "^3.5.0",
-    "eslint": "^8.55.0",
+    "@types/react": "^18.2.55",
+    "@types/react-dom": "^18.2.18",
+    "@vitejs/plugin-react-swc": "^3.6.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.5",
-    "vite": "^5.0.8"
+    "vite": "^5.0.12"
   }
 }
