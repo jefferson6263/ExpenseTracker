@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
 
 import com.fdmgroup.JeffersonExpenseTracker.Service.UserService;
@@ -48,32 +49,28 @@ public class UserController {
 	public void createUser(@RequestBody User newUser) {
 		userService.register(newUser);
 	}
-
+ 
 	@PutMapping("users")
 	public void updateUser(@RequestBody User newUser) {
 		userService.update(newUser);
-	}
-
+	}  
+  
 	@DeleteMapping("users/{userId}")
-	public void deleteUser(@PathVariable int userId) {
+	public void deleteUser(@PathVariable int userId) {  
 		userService.deleteById(userId);
 	}
-	
-	@GetMapping("allusers")
+	 
+	@GetMapping("allusers") 
 	public List<User> findAllUsers() {
 		return userService.findAll();
 	}
 	
 	@GetMapping("getuserbytoken")
 	public User findUserByToken(Authentication auth) {
-		System.out.println("testing");
 		return userService.findUserByToken(auth);
-	}
+	} 
 	
-//	@PutMapping("users/addexpense/{expenseId}")
-//	public void addExpenseToUser(@PathVariable int expenseId) {
-//		
-//	}
+	
 
 
 }

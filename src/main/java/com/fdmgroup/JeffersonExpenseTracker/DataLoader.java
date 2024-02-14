@@ -34,7 +34,7 @@ public class DataLoader implements ApplicationRunner {
 		this.userService = userService;
 		
 	}
-
+ 
 	
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
@@ -88,12 +88,12 @@ public class DataLoader implements ApplicationRunner {
 		exp7.setCategories(cat2);
 		exp8.setCategories(cat1);
 		exp8.setCategories(cat2);
-
+ 
 //		user1.setExpenses(exp1);
 //		user2.setExpenses(exp2);
-//		user3.setExpenses(exp3);
+//		user3.setExpenses(exp3);  
 //		user4.setExpenses(exp4);
-//		user3.setExpenses(exp5);
+//		user3.setExpenses(exp5);  
 //		user3.setExpenses(exp6);
 //		user4.setExpenses(exp7);
 //		user2.setExpenses(exp8);
@@ -107,6 +107,10 @@ public class DataLoader implements ApplicationRunner {
 		exp7.setUser(user4);
 		exp8.setUser(user2);
 		
+		exp8.setUser(user4);
+		exp2.setUser(user4);
+		exp3.setUser(user4);
+		
 //		userRepo.save(user1);
 //		userRepo.save(user2);
 //		userRepo.save(user3);
@@ -114,7 +118,7 @@ public class DataLoader implements ApplicationRunner {
 		
 		userService.register(user1);
 		userService.register(user2);
-		userService.register(user3);
+		userService.register(user3); 
 		userService.register(user4);
 		userService.register(user5);
 		

@@ -48,10 +48,14 @@ const SignInPage = (props) => {
       password: data.get('password'),
     })
 
+ 
+
     axios.post("http://localhost:8088/expensetracker/auth/login",{},requestOptions)
             .then(response=>{
-                setBearer("Bearer " + response.data)
+                setBearer(response.data)
                 console.log(response)
+                console.log(response["id"])
+         
                 navigate("/homepage")
             }).catch(function () {setloginCred(true)})
 

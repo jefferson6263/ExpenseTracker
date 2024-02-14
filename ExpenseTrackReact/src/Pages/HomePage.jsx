@@ -26,18 +26,25 @@ import { Paper } from '@mui/material';
 import TemporaryDrawer from '../Components/VerticalDashBoard';
 import StaticDatePickerLandscape from '../Components/Calender';
 import Button from '@mui/material/Button';
+import DashBoard from '../Components/VerticalDashBoard';
+import ExpenseCard from '../Components/ExpenseCard';
+import AllExpenses from '../Components/AllExpenses';
 
 export const HomePage = (props) => {
     const {bearer} = props
+    console.log("bearer is")
+    console.log(bearer)
     const [firstName, setfirstName] = useState("");
 
-    
+   
     useEffect(()=>{
         const requestOptions = {
             headers:{
-                Authorization: bearer
+                Authorization: "Bearer " + bearer
             }
         }
+        console.log("test")
+        console.log(requestOptions)
         axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
             .then(response=>{console.log(response.data)
                 const {id, email, firstName, lastName, username} = response.data
@@ -51,39 +58,38 @@ export const HomePage = (props) => {
 
     return (
         <>
-            <h1>HomePage</h1>
-            <h1>Welcome {firstName}</h1>
-         
-            <div style={{
-                marginTop: 8,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                backgroundColor: 'white',
-                borderRadius: 20,
-                padding: 30,
-                boxShadow: '8px 8px 25px rgba(0, 0, 0, 0.2)',
-                }}>
-
-                {/* <DateCalendar style={{ margin: 'auto' }} /> */}
                 
-                <Box>
-              
-                <StaticDatePickerLandscape/>
-                </Box>
+         
+                {/* <DateCalendar style={{ margin: 'auto' }} /> */}
+                <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    
+                <Box sx={{
       
-    </div>
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+
+                        
+                        alignItems: 'center',
+                        backgroundColor: 'white',
+                        borderRadius: 20,
+                        padding: 5,
+                        boxShadow: '8px 8px 25px rgba(0, 0, 0, 0.2)',
+                        height: '450px',
+                        width: '600px'
+                        }}>
+                        <StaticDatePickerLandscape bearer={bearer}/>
+                        </Box>
+                </div>
+                
+      
+          
  
 
-    <TemporaryDrawer/>
+        <DashBoard bearer={bearer}/>
 
-        
-     
-  
- 
-       
-            
-     
+      
+
         </>
 
     )

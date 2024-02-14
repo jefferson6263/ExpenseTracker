@@ -4,6 +4,7 @@ import java.util.List;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -52,5 +53,28 @@ public class ExpenseController {
 	public List<Expense> findAllExpenses() {
 		return expenseService.findAll();  
 	}
-
+	
+//	@PostMapping("user/addexpense")
+//	public void addExpenseToUser(Authentication auth, @RequestBody Expense newExpense, @RequestBody String[] someArray) {
+//		System.out.println(newExpense);
+//		expenseService.addExpenseToUser(auth, newExpense);
+//	
+//		return;
+//	}
+	
+	@PostMapping("user/addexpense")
+	public void addExpenseToUser(Authentication auth, @RequestBody ExpenseRequest newExpenseRequest) {
+		
+		expenseService.addExpenseToUser(auth, newExpenseRequest.getNewExpense());
+		expenseService.addCategoriesToExpense(newExpenseRequest.getNewExpense(), newExpenseRequest.getCategories());
+		
+		return;
+	}
+	
+	@GetMapping("userexpenses/{userId}")
+	public List<Expense> findExpensesBelongToUser(@PathVariable String userId) {
+		return expenseService.findExpensesBelongToUser(Integer.valueOf(userId));
+	} 
+	
+	
 }

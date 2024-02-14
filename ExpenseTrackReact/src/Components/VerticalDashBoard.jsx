@@ -21,14 +21,18 @@ import MailIcon from '@mui/icons-material/Mail';
 import Button from '@mui/material/Button';
 import TemporaryDrawer from './CreateExpenseDrawer';
 import { Modal } from '@mui/material';
-
+import { useNavigate } from 'react-router-dom';
 import { Unstable_Popup } from '@mui/base/Unstable_Popup';
 import { FormControl } from '@mui/material';  
 import { InputLabel } from '@mui/material';
 import { Input } from '@mui/base';
 import { FormHelperText } from '@mui/material';
 import CreateExpenseForm from './CreateExpenseForm';
-
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
+import DataSaverOffOutlinedIcon from '@mui/icons-material/DataSaverOffOutlined';
+import UpgradeOutlinedIcon from '@mui/icons-material/UpgradeOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 
 const drawerWidth = 240;
 
@@ -112,10 +116,13 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-export default function MiniDrawer() {
+export default function DashBoard(props) {
+  const {bearer} = props
+ 
+
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const navigate = useNavigate();
 
   const [openExpenseCreator, setOpenExpenseCreator] = React.useState(false);
 
@@ -129,6 +136,22 @@ export default function MiniDrawer() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+
+  const handleIconNav= (page) => {
+    console.log(page)
+    if (page === "Home Page") {
+      navigate("/homepage")
+    } else if (page === "View Expenses") {
+      navigate("/viewexpense")
+    } else if (page === "Statistics") {
+      navigate("/viewstatistics")
+    } else if (page === "Update Details") {
+      navigate("/updatedetails")
+    } else if (page === "Log Out") {
+      navigate("/")
+    }
+  }
 
 
   return (
@@ -187,7 +210,7 @@ export default function MiniDrawer() {
             </label>
             <input type="submit" value="Submit" />
           </form> */}
-          <CreateExpenseForm/>
+          <CreateExpenseForm bearer={bearer}/>
 
         </Box>
       </Modal>
@@ -207,7 +230,7 @@ export default function MiniDrawer() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Mini variant drawer
+            ExpenseEase
           </Typography>
           
         </Toolbar>
@@ -220,14 +243,18 @@ export default function MiniDrawer() {
         </DrawerHeader>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+          {['Home Page', 'View Expenses', 'Statistics'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }} >
               <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
+
+                  
                 }}
+                onClickCapture={() => handleIconNav(text)}
+                
               >
                 <ListItemIcon
                   sx={{
@@ -236,16 +263,20 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index === 0 && <HomeOutlinedIcon/>}
+                  {index === 1 && <GridViewOutlinedIcon/>}
+                  {index === 2 && <DataSaverOffOutlinedIcon/>}
+              
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+
               </ListItemButton>
             </ListItem>
           ))}
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {['Update Details', 'Log Out'].map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 sx={{
@@ -253,6 +284,8 @@ export default function MiniDrawer() {
                   justifyContent: open ? 'initial' : 'center',
                   px: 2.5,
                 }}
+                
+                onClickCapture={() => handleIconNav(text)}
               >
                 <ListItemIcon
                   sx={{
@@ -261,7 +294,9 @@ export default function MiniDrawer() {
                     justifyContent: 'center',
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index === 0 && <UpgradeOutlinedIcon/>}
+                  {index === 1 && <LogoutOutlinedIcon/>}
+               
                 </ListItemIcon>
                 <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
@@ -270,7 +305,7 @@ export default function MiniDrawer() {
         </List>
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
+        {/* <DrawerHeader />
         <Typography paragraph>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
           tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
@@ -280,7 +315,7 @@ export default function MiniDrawer() {
           Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
           eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
      
-        </Typography>
+        </Typography> */}
       </Box>
 
     </Box>

@@ -11,7 +11,7 @@ import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 
 public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
 
-	@Query("SELECT e from Expense e WHERE e.user = :userId")
+	@Query("SELECT e from Expense e WHERE e.user.id = :userId")
 	List<Expense> findExpensesByUserId(@Param("userId") int userId);
 	
 	

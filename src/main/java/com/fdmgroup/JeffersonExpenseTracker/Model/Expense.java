@@ -33,17 +33,17 @@ public class Expense {
 	private String description;
  
 	@ManyToOne()
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id" )
 	private User user;
-
+ 
 	@Column(name = "start_date")
 	private LocalDate startDate;
 
 	@Column(name = "end_name")
 	private LocalDate endDate;
-
+	
 	@ManyToMany()
-	@JoinTable(name = "categorisation", joinColumns = @JoinColumn(name = "category_id"), inverseJoinColumns = @JoinColumn(name = "expense_id"))
+	@JoinTable(name = "categorisation", joinColumns = @JoinColumn(name = "expense_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
 	@JsonManagedReference
 	private List<Category> categories = new ArrayList<Category>();
 

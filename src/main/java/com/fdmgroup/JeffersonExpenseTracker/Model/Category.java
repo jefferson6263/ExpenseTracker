@@ -19,6 +19,8 @@ public class Category {
 	@GeneratedValue
 	@Column(name = "category_id")
 	private int id;
+	
+	
 	private String name;
 
 	@ManyToMany(mappedBy = "categories", cascade = CascadeType.ALL)

@@ -11,12 +11,12 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 ReactDOM.createRoot(document.getElementById('root')).render(
   
 
-  <React.StrictMode>
+  // <React.StrictMode>
       
         <BrowserRouter>
           <App />
-        </BrowserRouter>
+        </BrowserRouter>,
    
-  </React.StrictMode>, 
+  {/* </React.StrictMode>,  */}
   
 )
