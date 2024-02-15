@@ -78,13 +78,10 @@ export const HomePage = (props) => {
                         height: '450px',
                         width: '600px'
                         }}>
-                        <StaticDatePickerLandscape bearer={bearer}/>
+                        <StaticDatePickerLandscape bearer={bearer} />
                         </Box>
                 </div>
                 
-      
-          
- 
 
         <DashBoard bearer={bearer}/>
 

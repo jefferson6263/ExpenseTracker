@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 
 import Button from '@mui/material/Button';
@@ -15,19 +14,47 @@ import { useState } from 'react';
 import { MuiChipsInput } from 'mui-chips-input'
 import axios from 'axios';
 import { Alert } from '@mui/material';
+import { useEffect } from 'react';
+import dayjs, { Dayjs } from 'dayjs';
 
 
-const CreateExpenseForm = (props) => {
-  const {bearer} = props
-  console.log("form bearer")
-  console.log(bearer)
-  const [createdNewExpense, setCreatedNewExpense] = React.useState(false)
-  const [startDate, setStartDate] = React.useState(new Date())
-  const [endDate, setEndDate] = React.useState(new Date())
+const EditExpenseForm = (props) => {
+   
+    const [chips, setChips] = useState([])
+    const [expenseNameError, setExpenseNameError] = useState(false);
+    const [expenseAmountError, setExpenseAmountError] = useState(false);
 
-  const [chips, setChips] = useState([])
-  const [expenseNameError, setExpenseNameError] = useState(false);
-  const [expenseAmountError, setExpenseAmountError] = useState(false);
+    const [id, setId] = useState(0)
+    const [name, setName] = useState("")
+    const [amount, setAmount] = useState(0)
+    const [description, setDescription] = useState("")
+    const [categories, setCategories] = useState([])
+    const [startDate, setStartDate] = React.useState("")
+    const [endDate, setEndDate] = React.useState("")
+
+    useEffect(()=>{
+        setId(props["id"])
+        setName(props["name"])
+        setAmount(props["amount"])
+        setDescription(props["description"])
+        setCategories(props["categories"])
+        setStartDate(props["startDate"])
+        setEndDate(props["endDate"])
+      },[]);
+
+ 
+
+    console.log(description)
+    console.log(startDate)
+    console.log(typeof(startDate))
+
+    console.log("not works")
+    console.log(dayjs(startDate))
+
+    console.log("works")
+    console.log(dayjs("2024-01-04"))
+
+  
 
   const handleChange = (newChips) => {
     setChips(newChips)
@@ -37,13 +64,6 @@ const CreateExpenseForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-  
-    // const signInOptions = {
-    //   auth:{
-    //     username:data.get('email'),
-    //     password:data.get('password')
-    //   }
-    // }
   
     console.log({
       name: data.get('expenseName'),
@@ -111,9 +131,7 @@ const CreateExpenseForm = (props) => {
       
       axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
             .then(response=>{
-           
-                console.log(response)
-                setCreatedNewExpense(true)
+  
             }).catch()
     }
 
@@ -126,24 +144,26 @@ const CreateExpenseForm = (props) => {
             Expense Name
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate >
+          <form autoComplete="off">
             <TextField
               required 
               fullWidth
               id="expenseName"
-              label="Expense Name"
+              label="Expense Name"      
               name="expenseName"
               autoComplete="expenseName"
               autoFocus
               error={expenseNameError}
               {...expenseNameError && {helperText:"Expense Name required"}}
+              value={name}
             />
-
+            </form>
           <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Expense Amount
           </Typography>
+          <form autoComplete="off">
             <TextField
               inputMode='decimal'
-            
               fullWidth
               name="expenseAmount"
               label="Expense Amount"
@@ -152,27 +172,29 @@ const CreateExpenseForm = (props) => {
               autoComplete="expenseAmount"
               error={expenseAmountError}
               {...expenseAmountError && {helperText:"Expense Amount must be valid"}}
+              value={amount}
             />
-
+            </form>
         <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Expense Description
           </Typography>
+          <form autoComplete="off">
             <TextField
-        
-             
               fullWidth
               name="expenseDescription"
               label="Expense Description"
               type="expenseDescription"
               id="expenseDescription"
               autoComplete="expenseDescription"
+              value={description}
             />
-            {/* <DateRangePicker/> */}
+            </form>
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Date
           </Typography>
-            <DatePicker label="Start Date" sx={{paddingRight: '85px'}} onChange={(newValue) => {setStartDate(newValue)}}/>
-            <DatePicker label="End Date" onChange={(newValue) => {setEndDate(newValue)}} />
+     
+            <DatePicker  value={dayjs(startDate)} label="Start Date" sx={{paddingRight: '85px'}} onChange={(newValue) => {setStartDate(newValue)}}/>
+            <DatePicker   value={dayjs(endDate)} label="End Date" onChange={(newValue) => {setEndDate(newValue)}} />
 
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Categories
@@ -188,11 +210,11 @@ const CreateExpenseForm = (props) => {
             >
               Create Expense
             </Button>
-            {createdNewExpense && <Alert severity="success">Expense has been created</Alert>}
+ 
           </Box>
          
         </Box>
   )
 }
 
-export default CreateExpenseForm
+export default EditExpenseForm

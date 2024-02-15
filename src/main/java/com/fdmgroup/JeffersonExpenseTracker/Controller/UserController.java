@@ -62,9 +62,9 @@ public class UserController {
 	 
 	@GetMapping("allusers") 
 	public List<User> findAllUsers() {
-		return userService.findAll();
+		return userService.findAll(); 
 	}
-	
+	 
 	@GetMapping("getuserbytoken")
 	public User findUserByToken(Authentication auth) {
 		return userService.findUserByToken(auth);

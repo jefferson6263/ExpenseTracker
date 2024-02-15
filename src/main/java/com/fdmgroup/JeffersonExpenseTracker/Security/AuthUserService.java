@@ -19,9 +19,15 @@ public class AuthUserService implements org.springframework.security.core.userde
 	}
 
 	@Override
-	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = this.userRepo.findByUsername(username).orElseThrow(
-				()-> new UsernameNotFoundException(username));
+	public org.springframework.security.core.userdetails.UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//		User user = this.userRepo.findByUsername(username).orElseThrow(
+//				()-> new UsernameNotFoundException(username));
+//		return new AuthUser(user);
+
+		
+		User user = this.userRepo.findByEmail(email).orElseThrow(
+				()-> new UsernameNotFoundException(email));
+		
 		return new AuthUser(user);
 	}
 	

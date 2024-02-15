@@ -21,6 +21,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { Chip } from '@mui/material';
 import axios from 'axios';
+import { Modal } from '@mui/material';
+import EditExpenseForm from './EditExpense';
+import { Box } from '@mui/material';
 
 
 const ExpandMore = styled((props) => {
@@ -35,11 +38,26 @@ const ExpandMore = styled((props) => {
 }));
 
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 700,
+  bgcolor: 'background.paper',
+  boxShadow: 24,
+  // p: 1,
+  padding: 6,
+  borderRadius: 8,
+};
+
+
 
 const ExpenseCard = (props) => {
   const [expanded, setExpanded] = React.useState(false);
-
   const [isDeleted, setIsDeleted] = useState(false);
+  
+  const [editMenu, setEditMenu] = useState(false);
 
   const [id, setId] = useState(0)
   const [name, setName] = useState("")
@@ -48,6 +66,7 @@ const ExpenseCard = (props) => {
   const [categories, setCategories] = useState([])
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
+  
   const date = (startDate === endDate) ? `${startDate}` : `${startDate} - ${endDate}`;
 
   useEffect(()=>{
@@ -80,31 +99,33 @@ const ExpenseCard = (props) => {
 
 
   const editExpense = () => {
+    setEditMenu(true)
     
+  }
+
+  const closeEditExpense = () => {
+    setEditMenu(false)
   }
 
   if (isDeleted) {
     return null; // Don't render the card if it's deleted
   }
   return (
-    
+ 
     <Card sx= {{ 
       maxWidth: 345, 
       borderRadius: 5, 
       boxShadow: '8px 8px 25px rgba(0, 0, 0, 0.2)',
       transition: 'transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-      width: 350, // Set the width
+      width: 350, 
     
       ':hover': {
       transform: 'scale(1.05)',
-      boxShadow: 20, // theme.shadows[20]
+      boxShadow: 20, 
       
     }, }}>
-      <CardHeader
-      
-        title={name}
-      
-        />
+
+      <CardHeader title={name}/>
       
       <CardContent>
         <Typography component="h1" variant="h5" fontFamily={"Lexend"} sx={{ fontSize: '24px' }}>
@@ -112,19 +133,42 @@ const ExpenseCard = (props) => {
           </Typography>
       </CardContent>
       <CardActions disableSpacing>
+
         <IconButton >
-          <DeleteIcon onClick={deleteExpense}/>
+          <DeleteIcon onClick={deleteExpense} />
         </IconButton>
+
         <IconButton>
-          <ModeEditOutlinedIcon />
+          <ModeEditOutlinedIcon onClick={editExpense}/>
         </IconButton>
+
+
+        <Modal open={editMenu} onClose={closeEditExpense}>
+          <Box sx={style}>
+
+
+
+            <EditExpenseForm  
+              id={id}
+              name={name}
+              amount={amount}
+              description={description}
+              startDate={startDate}
+              endDate={endDate}
+              categories={categories} />
+
+
+
+          </Box>
+          
+        </Modal>
         <ExpandMore
           expand={expanded}
           onClick={handleExpandClick}
           aria-expanded={expanded}
           aria-label="show more"
         >
-          <ExpandMoreIcon />
+          <ExpandMoreIcon/>
         </ExpandMore>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -164,6 +208,7 @@ const ExpenseCard = (props) => {
         </CardContent>
       </Collapse>
     </Card>
+  
   );
 }
 

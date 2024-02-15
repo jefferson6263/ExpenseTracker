@@ -23,7 +23,7 @@ public class ExpenseController {
 
 	@Autowired
 	public ExpenseController(ExpenseService expenseService) {
-		super();
+		super(); 
 
 		this.expenseService = expenseService;
 	}

@@ -29,14 +29,14 @@ public class AuthUser implements org.springframework.security.core.userdetails.U
 
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.user.getPassword();
+		// TODO Auto-generated method stub 
+		return this.user.getPassword(); 
 	}
 
 	@Override
 	public String getUsername() {
 		// TODO Auto-generated method stub
-		return this.user.getUsername();
+		return this.user.getEmail(); 
 	}
 
 	@Override

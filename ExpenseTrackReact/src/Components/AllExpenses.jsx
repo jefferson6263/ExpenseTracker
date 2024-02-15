@@ -7,10 +7,10 @@ import ExpenseCard from './ExpenseCard'
 
 
 const allExpenses = (props) => {
-    const {bearer} = props.bearer
+    const {bearer} = props
     
-
     const [expenses, setExpense] = useState([]);
+
     useEffect(()=>{
         
         const requestOptions = {
@@ -22,17 +22,15 @@ const allExpenses = (props) => {
         axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
             .then(response => {
                 const {id} = response.data
-                // let id = 4
+                console.log(id)
                 axios.get("http://localhost:8088/expensetracker/userexpenses/" + id)
                     .then(response=>{
                         setExpense(response.data)
+                      
                      
             })
             })
 
-
-        
-     
     },[]);
 
     console.log(expenses)

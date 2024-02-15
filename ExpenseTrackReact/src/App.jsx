@@ -16,6 +16,7 @@ import UpdateDetailsPage from './Pages/UpdateDetailsPage.jsx'
 
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { Container } from '@mui/material'
 
 
 
@@ -34,11 +35,12 @@ function App() {
 
   return (
     <>
-
-   
-      <LocalizationProvider dateAdapter={AdapterDayjs} >
+    
       <ThemeProvider theme={defaultTheme} >
-      <CssBaseline />
+      <CssBaseline/>
+      <LocalizationProvider dateAdapter={AdapterDayjs} >
+      
+     
 
         <Routes>
           {/* <Route path="/" element ={<SignInPage />}/> */}
@@ -51,11 +53,11 @@ function App() {
           <Route path="/updatedetails" element ={<UpdateDetailsPage bearer={bearer}/>}/>
           <Route path="*"  element ={<SignInPage bearer={[bearer, setBearer]}/>}/>
         </Routes>
-
-      </ThemeProvider>
+        
       </LocalizationProvider>
-    
-
+     
+      </ThemeProvider>
+     
     </>
   )
 }

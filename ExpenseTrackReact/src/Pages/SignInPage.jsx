@@ -20,11 +20,6 @@ import { Paper } from '@mui/material';
 
 
 
-
-
-
-
-
 const SignInPage = (props) => {
   const [bearer, setBearer] = props.bearer
   const [loginCred, setloginCred] = useState(false)
@@ -67,14 +62,15 @@ const SignInPage = (props) => {
   
    
   return (
-
+      
       <Container component="main" maxWidth="xs" > 
-
+        <h1>ExpensEase</h1>
         <Grow 
           in={true}
           style={{ transformOrigin: '0 5 0' }}
           {...({ timeout: 1000 })}
         > 
+          
          <Box
     sx={{
       marginTop: 8,

@@ -77,6 +77,7 @@ public class UserService {
 
 	public User findUserByToken(Authentication auth) {
 		// TODO Auto-generated method stub
+		System.out.println(auth.getName());
 		System.out.println(findByEmail(auth.getName()));
 		return findByEmail(auth.getName());
 	}

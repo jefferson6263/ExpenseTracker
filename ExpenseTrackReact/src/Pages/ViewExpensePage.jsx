@@ -4,12 +4,13 @@ import AllExpenses from '../Components/AllExpenses'
 
 const ViewExpensePage = (props) => {
     const {bearer} = props
+
     return (
         <>
 
             <h1>View Expenses</h1>
             <DashBoard bearer={bearer}/>
-            <AllExpenses bearer={{bearer}}/>
+            <AllExpenses bearer={bearer}/>
         
         </>
     )
