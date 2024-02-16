@@ -1,38 +1,20 @@
-
-import * as React from 'react';
-
 import Button from '@mui/material/Button';
-
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import '../Fonts/Fonts.css';
 
 
   
-
+a
 const SignIn = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-  
-    // const signInOptions = {
-    //   auth:{
-    //     username:data.get('email'),
-    //     password:data.get('password')
-    //   }
-    // }
-  
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  
-  
+
   }
 
   

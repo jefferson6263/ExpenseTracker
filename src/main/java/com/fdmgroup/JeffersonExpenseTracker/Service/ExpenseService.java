@@ -53,15 +53,33 @@ public class ExpenseService {
 	}
  
 	
-	public void update(Expense newExpense) {
+	public void update(Authentication auth, Expense newExpense, String[] categories) {
+		
+		
 
 		if (expenseRepo.existsById(newExpense.getId())) {
-			Expense e = expenseRepo.findById(newExpense.getId()).get();
-			newExpense.setUser(e.getUser());
-			this.expenseRepo.save(newExpense);
+//			Expense e = expenseRepo.findById(newExpense.getId()).get();
+//			 
+//			newExpense.setUser(e.getUser());
+//			newExpense.updateCategories(categories);
+//			this.expenseRepo.save(newExpense);
+			newExpense.setUser(userService.findByEmail(auth.getName())); 
+			
+			ArrayList<Category> newCategories = new ArrayList<>();
+			 
+			for (String i : categories) {
+				Category newCategory = new Category(i);
+				newCategories.add(newCategory);
+				categoryService.save(newCategory);
+			} 
+			
+			newExpense.updateCategories(newCategories);
+			expenseRepo.save(newExpense);
 			return;
 		}
+		
 
+		
 		throw new ExpenseIdException("Must provide a valid expenseId for updating");
 	}
 

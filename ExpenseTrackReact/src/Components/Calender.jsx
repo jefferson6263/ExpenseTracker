@@ -17,15 +17,14 @@ import { Grow } from '@mui/material';
 const StaticDatePickerLandscape = (props) => {
   const [value, setValue] = React.useState(new Date());
   const {bearer} = props
-  // console.log("date picker")
-  // console.log(bearer)
+
   
-  const [expensesToBeDisplayed, setExpensesToBeDisplayed] = useState([]);
-  const [expenses, setExpense] = useState([]);
+  const [expensesToBeDisplayed, setExpensesToBeDisplayed] = useState([])
+  const [expenses, setExpense] = useState([])
+  const [state, setState] = useState(true)
 
   const handleAccept = (value) => {
- 
-    console.log("pressed ok")
+
     const requestOptions = {
         headers:{
             Authorization: "Bearer " + bearer
@@ -53,7 +52,6 @@ const StaticDatePickerLandscape = (props) => {
                         let dateObjectEnd = new Date(parseInt(year2), parseInt(month2) - 1, parseInt(day2))
 
                         if (d >= dateObjectStart && d <= dateObjectEnd) {
-                          console.log("BBIBIBIB")
                           e.push(expense)
                         }
                     })
@@ -63,27 +61,6 @@ const StaticDatePickerLandscape = (props) => {
         })
     })
 
-    // let d = new Date(value["$d"])
-
-    // console.log(d)
-    // console.log("wt")
-    // console.log(huh.data)
-    // let e = []
-    // expenses.forEach((expense, index) => {
-       
-    //     let [year, month, day] = expense["startDate"].split("-");
-    //     let dateObjectStart = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
-
-    //     let [year2, month2, day2] = expense["endDate"].split("-");
-    //     let dateObjectEnd = new Date(parseInt(year2), parseInt(month2) - 1, parseInt(day2))
-
-    //     if (d >= dateObjectStart && d <= dateObjectEnd) {
-    //       console.log("BBIBIBIB")
-    //       e.push(expense)
-    //     }
-    // })
-    // setExpensesToBeDisplayed(e)
-    
 
   }
   return (
@@ -114,11 +91,8 @@ const StaticDatePickerLandscape = (props) => {
         
           <Grid item xs={4}>
 
-          {/* <Grow 
-          in={true}
-          style={{ transformOrigin: '0 5 0' }}
-          {...({ timeout: 1000 })} */}
-          <Slide direction="up" in={true} mountOnEnter unmountOnExit>
+
+          <Slide direction="up" in={true} mountOnEnter unmountOnxit>
         
         <div style={{ paddingBottom: '40px' }}>
             <ExpenseCard
@@ -129,6 +103,8 @@ const StaticDatePickerLandscape = (props) => {
               startDate={expense.startDate}
               endDate={expense.endDate}
               categories={expense.categories}
+              bearer={bearer}
+
             />
             </div>
             </Slide>

@@ -32,8 +32,7 @@ import AllExpenses from '../Components/AllExpenses';
 
 export const HomePage = (props) => {
     const {bearer} = props
-    console.log("bearer is")
-    console.log(bearer)
+
     const [firstName, setfirstName] = useState("");
 
    
@@ -43,12 +42,11 @@ export const HomePage = (props) => {
                 Authorization: "Bearer " + bearer
             }
         }
-        console.log("test")
-        console.log(requestOptions)
+
         axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
-            .then(response=>{console.log(response.data)
+            .then(response=>{
                 const {id, email, firstName, lastName, username} = response.data
-                console.log(id)
+
                 setfirstName(firstName)
             })
 

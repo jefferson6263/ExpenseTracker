@@ -16,6 +16,7 @@ import axios from 'axios';
 import { Alert } from '@mui/material';
 import { useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
+import { set } from 'date-fns';
 
 
 const EditExpenseForm = (props) => {
@@ -24,73 +25,63 @@ const EditExpenseForm = (props) => {
     const [expenseNameError, setExpenseNameError] = useState(false);
     const [expenseAmountError, setExpenseAmountError] = useState(false);
 
-    const [id, setId] = useState(0)
+    const [expenseId, setId] = useState(0)
     const [name, setName] = useState("")
-    const [amount, setAmount] = useState(0)
+    const [amount, setAmount] = useState("")
     const [description, setDescription] = useState("")
     const [categories, setCategories] = useState([])
     const [startDate, setStartDate] = React.useState("")
     const [endDate, setEndDate] = React.useState("")
+    const [bearer, setBearer] = useState("")
 
     useEffect(()=>{
         setId(props["id"])
         setName(props["name"])
-        setAmount(props["amount"])
+        setAmount(""+props["amount"])
         setDescription(props["description"])
-        setCategories(props["categories"])
+        setCategories(props["categories"].map(item => item.name))
         setStartDate(props["startDate"])
         setEndDate(props["endDate"])
+        setBearer(props["bearer"])
       },[]);
 
- 
 
-    console.log(description)
-    console.log(startDate)
-    console.log(typeof(startDate))
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
 
-    console.log("not works")
-    console.log(dayjs(startDate))
+  const handleAmountChange = (event) => {
+    setAmount(event.target.value);
+  };
 
-    console.log("works")
-    console.log(dayjs("2024-01-04"))
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
 
-  
-
-  const handleChange = (newChips) => {
-    setChips(newChips)
+  const handleCategoriesChange = (newChips) => {
+    setCategories(newChips)
   }
+
+
 
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-  
-    console.log({
-      name: data.get('expenseName'),
-      amount: data.get('expenseAmount'),
-      description: data.get('expenseDescription'),
-      startDate: startDate,
-      endDate: endDate,
-      categories: chips
-    });
-    
-    const newExpenseNameError = data.get("expenseName").trim() === "";
+
+
+    const newExpenseNameError = name.trim() === "";
     setExpenseNameError(newExpenseNameError)
 
-    
-    setExpenseAmountError(data.get("expenseAmount").trim() === "")
+    setExpenseAmountError(amount.trim() === "")
 
-    // const isValidAmount = /^(\d+(\.\d*)?|\.\d+)?$/.test(data.get('expenseAmount'));
-    // console.log(isValidAmount)
+
 
     let expenseAmountInt = 0
     let newExpenseAmountError = true;
 
 
-    
-
-    if (data.get('expenseAmount') !== "" && /^(\d+(\.\d*)?|\.\d+)?$/.test(data.get('expenseAmount'))) {
-      expenseAmountInt = parseFloat(data.get('expenseAmount'))
+    if (amount !== "" && /^(\d+(\.\d*)?|\.\d+)?$/.test(amount)) {
+      expenseAmountInt = parseFloat(amount)
       newExpenseAmountError = expenseAmountInt < 0;
     } else {
       setExpenseAmountError(true)
@@ -99,40 +90,56 @@ const EditExpenseForm = (props) => {
 
 
     if (!newExpenseNameError && !newExpenseAmountError) {
-      console.log("all good to send")
 
-      let id = 0;
       const requestOptions = {
         headers:{
-            Authorization: "Bearer " + bearer,
-        }
-      }
-     
-      let user = {}
-      axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
-            .then(response=>{console.log(response.data)
-                id = response.data["id"]
-                console.log("beanie")
-                console.log(id)
-                user = response.data
+            Authorization: "Bearer " + bearer
+          }
+    }
 
-            })
-      console.log(chips)
+    axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
+        .then(response => {
+            const {id} = response.data
+           
 
-      const newExpense = {
-        newExpense : {name: data.get('expenseName'),
-                  amount: data.get('expenseAmount'),
-                  description: data.get('expenseDescription'),
+            const updatedExpense = {
+              newExpense : {
+                  id: expenseId,
+                  name: name,
+                  amount: amount,
+                  description: description,
                   startDate: startDate,
-                  endDate: endDate,
-                },
-        categories: chips
-      }
+                  endDate: endDate,},
+        
+              categories:categories
+            }
+
+            axios.put("http://localhost:8088/expensetracker/expenses", updatedExpense,requestOptions)
+
+                  
+                 
+        })
       
-      axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
-            .then(response=>{
+
+
+   
+ 
+   
+
+      // const newExpense = {
+      //   newExpense : {name: data.get('expenseName'),
+      //             amount: data.get('expenseAmount'),
+      //             description: data.get('expenseDescription'),
+      //             startDate: startDate,
+      //             endDate: endDate,
+      //           },
+      //   categories: chips
+      // }
+      
+      // axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
+      //       .then(response=>{
   
-            }).catch()
+      //       }).catch()
     }
 
   }
@@ -156,6 +163,7 @@ const EditExpenseForm = (props) => {
               error={expenseNameError}
               {...expenseNameError && {helperText:"Expense Name required"}}
               value={name}
+              onChange={handleNameChange}
             />
             </form>
           <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
@@ -173,6 +181,7 @@ const EditExpenseForm = (props) => {
               error={expenseAmountError}
               {...expenseAmountError && {helperText:"Expense Amount must be valid"}}
               value={amount}
+              onChange={handleAmountChange}
             />
             </form>
         <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
@@ -187,6 +196,7 @@ const EditExpenseForm = (props) => {
               id="expenseDescription"
               autoComplete="expenseDescription"
               value={description}
+              onChange={handleDescriptionChange}
             />
             </form>
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
@@ -199,8 +209,7 @@ const EditExpenseForm = (props) => {
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Categories
           </Typography>
-
-            <MuiChipsInput fullWidth={true} value={chips} onChange={handleChange}/ >
+            <MuiChipsInput fullWidth={true} value={categories} onChange={handleCategoriesChange}/ >
             
             <Button
               type="submit"
@@ -208,7 +217,7 @@ const EditExpenseForm = (props) => {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-              Create Expense
+              Update Expense
             </Button>
  
           </Box>

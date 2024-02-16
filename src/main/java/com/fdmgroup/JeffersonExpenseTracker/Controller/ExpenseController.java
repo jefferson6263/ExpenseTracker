@@ -39,9 +39,11 @@ public class ExpenseController {
 	}
 	
 	@PutMapping("expenses")
-	public void updateExpense(@RequestBody Expense newExpense) {
+	public void updateExpense(Authentication auth, @RequestBody ExpenseRequest newExpenseRequest) {
 		//gets rid of the user id
-		expenseService.update(newExpense);
+		System.out.println(newExpenseRequest.getCategories());
+		System.out.println(newExpenseRequest.getNewExpense());
+		expenseService.update(auth, newExpenseRequest.getNewExpense(), newExpenseRequest.getCategories());
 	}
 	
 	@DeleteMapping("expenses/{expenseId}")

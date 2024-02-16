@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -16,23 +16,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import Button from '@mui/material/Button';
-import TemporaryDrawer from './CreateExpenseDrawer';
 import { Modal } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Unstable_Popup } from '@mui/base/Unstable_Popup';
-import { FormControl } from '@mui/material';  
-import { InputLabel } from '@mui/material';
-import { Input } from '@mui/base';
-import { FormHelperText } from '@mui/material';
 import CreateExpenseForm from './CreateExpenseForm';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import GridViewOutlinedIcon from '@mui/icons-material/GridViewOutlined';
 import DataSaverOffOutlinedIcon from '@mui/icons-material/DataSaverOffOutlined';
 import UpgradeOutlinedIcon from '@mui/icons-material/UpgradeOutlined';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useState } from 'react';
 
 const drawerWidth = 240;
 
@@ -121,10 +114,10 @@ export default function DashBoard(props) {
  
 
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
 
-  const [openExpenseCreator, setOpenExpenseCreator] = React.useState(false);
+  const [openExpenseCreator, setOpenExpenseCreator] = useState(false);
 
   const handleOpen = () => setOpenExpenseCreator(true);
   const handleClose = () => setOpenExpenseCreator(false);
@@ -139,7 +132,6 @@ export default function DashBoard(props) {
 
 
   const handleIconNav= (page) => {
-    console.log(page)
     if (page === "Home Page") {
       navigate("/homepage")
     } else if (page === "View Expenses") {
@@ -161,7 +153,6 @@ export default function DashBoard(props) {
       <AppBar position="fixed" open={open}>
      
         <Toolbar>
-        {/* <TemporaryDrawer/> */}
         <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black">
           <Button
         
@@ -197,19 +188,6 @@ export default function DashBoard(props) {
             Create a new Expense
           </Typography>
 
-          {/* <FormControl>
-          <InputLabel htmlFor="my-input">Email address</InputLabel>
-          <Input id="my-input" aria-describedby="my-helper-text" />
-          <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
-        </FormControl> */}
-
-          {/* <form>
-            <label>
-              Name:
-              <input type="text" name="name" />
-            </label>
-            <input type="submit" value="Submit" />
-          </form> */}
           <CreateExpenseForm bearer={bearer}/>
 
         </Box>

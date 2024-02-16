@@ -19,8 +19,7 @@ import { Alert } from '@mui/material';
 
 const CreateExpenseForm = (props) => {
   const {bearer} = props
-  console.log("form bearer")
-  console.log(bearer)
+
   const [createdNewExpense, setCreatedNewExpense] = React.useState(false)
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
@@ -37,22 +36,7 @@ const CreateExpenseForm = (props) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-  
-    // const signInOptions = {
-    //   auth:{
-    //     username:data.get('email'),
-    //     password:data.get('password')
-    //   }
-    // }
-  
-    console.log({
-      name: data.get('expenseName'),
-      amount: data.get('expenseAmount'),
-      description: data.get('expenseDescription'),
-      startDate: startDate,
-      endDate: endDate,
-      categories: chips
-    });
+
     
     const newExpenseNameError = data.get("expenseName").trim() === "";
     setExpenseNameError(newExpenseNameError)
@@ -60,8 +44,6 @@ const CreateExpenseForm = (props) => {
     
     setExpenseAmountError(data.get("expenseAmount").trim() === "")
 
-    // const isValidAmount = /^(\d+(\.\d*)?|\.\d+)?$/.test(data.get('expenseAmount'));
-    // console.log(isValidAmount)
 
     let expenseAmountInt = 0
     let newExpenseAmountError = true;
@@ -79,7 +61,6 @@ const CreateExpenseForm = (props) => {
 
 
     if (!newExpenseNameError && !newExpenseAmountError) {
-      console.log("all good to send")
 
       let id = 0;
       const requestOptions = {
@@ -90,14 +71,13 @@ const CreateExpenseForm = (props) => {
      
       let user = {}
       axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
-            .then(response=>{console.log(response.data)
+            .then(response=>{
+
                 id = response.data["id"]
-                console.log("beanie")
-                console.log(id)
                 user = response.data
 
             })
-      console.log(chips)
+
 
       const newExpense = {
         newExpense : {name: data.get('expenseName'),
@@ -111,8 +91,7 @@ const CreateExpenseForm = (props) => {
       
       axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
             .then(response=>{
-           
-                console.log(response)
+
                 setCreatedNewExpense(true)
             }).catch()
     }

@@ -22,7 +22,6 @@ const allExpenses = (props) => {
         axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
             .then(response => {
                 const {id} = response.data
-                console.log(id)
                 axios.get("http://localhost:8088/expensetracker/userexpenses/" + id)
                     .then(response=>{
                         setExpense(response.data)
@@ -33,7 +32,6 @@ const allExpenses = (props) => {
 
     },[]);
 
-    console.log(expenses)
  
 
   return (
@@ -52,13 +50,13 @@ const allExpenses = (props) => {
               startDate={expense.startDate} 
               endDate={expense.endDate} 
               categories={expense.categories}
+              bearer={bearer}
             />
           </Grid>
           {(index + 1) % 3 === 0 && <Grid item xs={12}><Divider style={{ display: 'none' }}/></Grid>} 
         </React.Fragment>
       ))}
     </Grid>
-
 
     </>
   )

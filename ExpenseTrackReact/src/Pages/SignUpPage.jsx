@@ -1,18 +1,12 @@
 import * as React from 'react';
-
 import Button from '@mui/material/Button';
-
 import TextField from '@mui/material/TextField';
-
 import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
 import { Grow } from '@mui/material';
 import '../Fonts/Fonts.css';
 import axios from 'axios'
@@ -51,14 +45,6 @@ const SignUp = () => {
       password: data.get('password'),
     }
 
-    console.log({
-      
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      username: data.get('username'),
-      password: data.get('password'),
-    })
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -75,7 +61,6 @@ const SignUp = () => {
     setvalidEmailForm(validEmailForm);
 
     if (newValidEmailForm) {
-      console.log("form is good")
       const endpoint1 = "http://localhost:8088/expensetracker/getuserbyemail/" + data.get('email')
 
   

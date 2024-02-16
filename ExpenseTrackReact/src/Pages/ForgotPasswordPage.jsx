@@ -36,11 +36,6 @@ const ForgotPassword = () => {
         
         const data = new FormData(event.currentTarget);
        
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-
         const endpoint1 = "http://localhost:8088/expensetracker/getuserbyemail/" + data.get('email')
         const result = axios.get(endpoint1)
 
@@ -50,18 +45,13 @@ const ForgotPassword = () => {
         })
 
         if (emailExist) {
-            console.log("exist")
 
             result.then(function (response) {
               
               const user = response.data
-              console.log(user);
-              console.log(user["password"]);
+              const endpoint2 = "http://localhost:8088/expensetracker/users" 
 
               user["password"] = data.get('password')
-              console.log(user["password"]);
-
-              const endpoint2 = "http://localhost:8088/expensetracker/users" 
               axios.put(endpoint2, user)
               navigate("/")
             })

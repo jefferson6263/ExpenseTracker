@@ -16,7 +16,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { Grow } from '@mui/material';
 import { Alert } from '@mui/material';
-import { Paper } from '@mui/material';
+
 
 
 
@@ -37,19 +37,13 @@ const SignInPage = (props) => {
       }
   }
 
-  
-    console.log({
-      username: data.get('email'),
-      password: data.get('password'),
-    })
 
  
 
     axios.post("http://localhost:8088/expensetracker/auth/login",{},requestOptions)
             .then(response=>{
                 setBearer(response.data)
-                console.log(response)
-                console.log(response["id"])
+
          
                 navigate("/homepage")
             }).catch(function () {setloginCred(true)})
@@ -121,6 +115,7 @@ const SignInPage = (props) => {
       </Button>
       <Grid container direction="column">
         <Grid item xs>
+          
           <Link to="/forgotpassword" variant="body2">
             Forgot password?
           </Link>

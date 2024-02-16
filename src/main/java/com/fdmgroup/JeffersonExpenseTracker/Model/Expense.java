@@ -123,6 +123,10 @@ public class Expense {
 	public void setCategories(Category categories) {
 		this.categories.add(categories);
 	}
+	
+	public void updateCategories(ArrayList<Category> categories) {
+		this.categories = categories;
+	}
 
 	@Override
 	public String toString() {
