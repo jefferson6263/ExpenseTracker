@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import EditExpenseForm from './EditExpense';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
@@ -11,14 +11,13 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ModeEditOutlinedIcon from '@mui/icons-material/ModeEditOutlined';
+import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Chip } from '@mui/material';
-import axios from 'axios';
 import { Modal } from '@mui/material';
-import EditExpenseForm from './EditExpense';
 import { Box } from '@mui/material';
-
+import { styled } from '@mui/material/styles';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -40,7 +39,6 @@ const style = {
   width: 700,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  // p: 1,
   padding: 6,
   borderRadius: 8,
 };
@@ -61,6 +59,7 @@ const ExpenseCard = (props) => {
   const [startDate, setStartDate] = React.useState(new Date())
   const [endDate, setEndDate] = React.useState(new Date())
   const [bearer, setBearer] = useState("")
+  const [render, setRender] = useState(false)
   
   const date = (startDate === endDate) ? `${startDate}` : `${startDate} - ${endDate}`;
 
@@ -73,7 +72,7 @@ const ExpenseCard = (props) => {
     setStartDate(props["startDate"])
     setEndDate(props["endDate"])
     setBearer(props["bearer"])
-  },[]);
+  },[editMenu, ]);
  
  
 
@@ -93,19 +92,23 @@ const ExpenseCard = (props) => {
     
   }
 
-
-  const editExpense = () => {
+  const openEditExpense = () => {
     setEditMenu(true)
-    
   }
 
   const closeEditExpense = () => {
     setEditMenu(false)
   }
 
+  const t = () => {
+    setRender(true)
+  }
+
   if (isDeleted) {
     return null; 
   }
+
+
 
   return (
  
@@ -136,14 +139,12 @@ const ExpenseCard = (props) => {
         </IconButton>
 
         <IconButton>
-          <ModeEditOutlinedIcon onClick={editExpense}/>
+          <ModeEditOutlinedIcon onClick={openEditExpense}/>
         </IconButton>
 
 
-        <Modal open={editMenu} onClose={closeEditExpense}>
+        <Modal open={editMenu} onClose={closeEditExpense} onClick={t}>
           <Box sx={style}>
-
-
 
             <EditExpenseForm  
               id={id}
@@ -156,8 +157,6 @@ const ExpenseCard = (props) => {
               bearer={bearer}
               
               />
-
-
 
           </Box>
           
@@ -191,7 +190,6 @@ const ExpenseCard = (props) => {
           </Typography>
 
 
-      
           <Typography component="h1" variant="h5" fontFamily={"Lexend"} sx={{ fontSize: '24px', marginBottom: '10px' }}>
             Categories
           </Typography>

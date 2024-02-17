@@ -89,9 +89,7 @@ const StaticDatePickerLandscape = (props) => {
     <Grid container spacing={2}>
       {expensesToBeDisplayed.map((expense, index) => (
         
-          <Grid item xs={4}>
-
-
+          <Grid item xs={4} key={index}>
           <Slide direction="up" in={true} mountOnEnter unmountOnxit>
         
         <div style={{ paddingBottom: '40px' }}>

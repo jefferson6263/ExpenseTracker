@@ -2,29 +2,18 @@
 
 import React from 'react'
 import DashBoard from '../Components/VerticalDashBoard'
-
-
 import Button from '@mui/material/Button';
-
 import TextField from '@mui/material/TextField';
-
 import Alert from '@mui/material/Alert';
-import { Link } from 'react-router-dom';
-
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-
-import { Grow } from '@mui/material';
 import '../Fonts/Fonts.css';
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useState } from 'react';
 import { useEffect } from 'react';
-
-import CheckIcon from '@mui/icons-material/Check';
+import { Grow } from '@mui/material';
 import { Fade } from '@mui/material';
 
 
@@ -33,24 +22,20 @@ const UpdateDetailsPage = (props) => {
 
     const {bearer} = props
     const navigate = useNavigate();
-    const [emailExist, setemailExist] = useState(false);
+
     const [validEmailForm, setvalidEmailForm] = useState(true);
-  
     const [firstNameError, setFirstNameError] = useState(false);
     const [lastNameError, setLastNameError] = useState(false);
     const [usernameError, setUsernameError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-
     const [id, setId] = useState(0)
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
-
     const [email, setEmail] = useState("")
-    const [newEmail, setNewEmail] = useState("")
-
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [success, setSuccess] = useState(false)
+    const [updatedDetails, setUpdatedDetails] = useState(false)
+
     useEffect(()=>{
       
         const requestOptions = {
@@ -76,29 +61,30 @@ const UpdateDetailsPage = (props) => {
   
     const handleFirstNameChange = (event) => {
         setFirstName(event.target.value);
+        setUpdatedDetails(false)
     };
 
     const handleLastNameChange = (event) => {
         setLastName(event.target.value);
+        setUpdatedDetails(false)
     };
 
-    const handleEmailChange = (event) => {
-        setNewEmail(event.target.value);
-    };
 
     const handleUsernameChange = (event) => {
         setUsername(event.target.value);
+        setUpdatedDetails(false)
     };
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
+        setUpdatedDetails(false)
     };
     
   
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      setemailExist(false)
+     
      
       const updatedUser = {
         id: id,
@@ -127,7 +113,7 @@ const UpdateDetailsPage = (props) => {
 
         const endpoint2 = "http://localhost:8088/expensetracker/users"
         axios.put(endpoint2, updatedUser)
-        setSuccess(true)
+        setUpdatedDetails(true)
 
         } 
 
@@ -241,15 +227,14 @@ const UpdateDetailsPage = (props) => {
             >
               Update Details
             </Button>
-           
+            <Fade in={updatedDetails}>
+              <Alert severity="success">User Details have been updated</Alert>
+            </Fade>
+            
           </Box>
           
-          <Fade in={success}>
-          <Alert  severity="success" sx={{ mb: -4 }}>
-            You have updated your details
-            </Alert>
-
-          </Fade>
+          
+        
           
         </Box>
         </Grow>

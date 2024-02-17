@@ -2,27 +2,27 @@
 import * as React from 'react';
 
 import Button from '@mui/material/Button';
-
+import axios from 'axios';
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import '../Fonts/Fonts.css';
 import { DatePicker } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import { MuiChipsInput } from 'mui-chips-input'
-import axios from 'axios';
 import { Alert } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 
 const CreateExpenseForm = (props) => {
   const {bearer} = props
 
-  const [createdNewExpense, setCreatedNewExpense] = React.useState(false)
-  const [startDate, setStartDate] = React.useState(new Date())
-  const [endDate, setEndDate] = React.useState(new Date())
+  const [isMade, setIsMade] = useState(false)
+  const navigate = useNavigate();
+
+  const [createdNewExpense, setCreatedNewExpense] = useState(false)
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setEndDate] = useState(new Date())
 
   const [chips, setChips] = useState([])
   const [expenseNameError, setExpenseNameError] = useState(false);
@@ -69,7 +69,6 @@ const CreateExpenseForm = (props) => {
         }
       }
      
-      let user = {}
       axios.get("http://localhost:8088/expensetracker/getuserbytoken",requestOptions)
             .then(response=>{
 
@@ -91,14 +90,17 @@ const CreateExpenseForm = (props) => {
       
       axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
             .then(response=>{
-
                 setCreatedNewExpense(true)
-            }).catch()
+                setIsMade(true)
+              
+            })
     }
+
+  
 
   }
 
-  
+
   return (
     <Box>
           <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingBottom: '5px'}}>
@@ -137,8 +139,6 @@ const CreateExpenseForm = (props) => {
             Expense Description
           </Typography>
             <TextField
-        
-             
               fullWidth
               name="expenseDescription"
               label="Expense Description"
@@ -146,13 +146,12 @@ const CreateExpenseForm = (props) => {
               id="expenseDescription"
               autoComplete="expenseDescription"
             />
-            {/* <DateRangePicker/> */}
+            
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Date
           </Typography>
             <DatePicker label="Start Date" sx={{paddingRight: '85px'}} onChange={(newValue) => {setStartDate(newValue)}}/>
             <DatePicker label="End Date" onChange={(newValue) => {setEndDate(newValue)}} />
-
             <Typography component="h1" variant="h5" fontFamily={"Lexend"} color="black" sx={{paddingTop: '10px', paddingBottom: '5px'}}>
             Categories
           </Typography>

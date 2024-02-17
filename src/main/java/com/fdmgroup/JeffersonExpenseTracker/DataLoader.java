@@ -43,9 +43,7 @@ public class DataLoader implements ApplicationRunner {
 		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ");
 		User user3 = new User("Mike", "Yao", "mikeyao@live.com", "mikeyao", "java23");
 		User user4 = new User("Rachel", "Perry", "rachelperry@live.com", "rperry1", "moo89");
-		
 		User user5 = new User("aa", "aa", "aa", "aa", "aa");
-		
 		User user6 = new User("firstNameTest", "lastNameTest", "a", "test1", "a");
 
 		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
@@ -112,23 +110,11 @@ public class DataLoader implements ApplicationRunner {
 		
 		exp9.setCategories(cat6);
 		exp9.setCategories(cat4);
-		
 		exp10.setCategories(cat4);
 		exp10.setCategories(cat5);
-		
 		exp11.setCategories(cat4);
-		
 		exp12.setCategories(cat2);
 
- 
-//		user1.setExpenses(exp1);
-//		user2.setExpenses(exp2);
-//		user3.setExpenses(exp3);  
-//		user4.setExpenses(exp4);
-//		user3.setExpenses(exp5);  
-//		user3.setExpenses(exp6);
-//		user4.setExpenses(exp7);
-//		user2.setExpenses(exp8);
 
 		exp1.setUser(user1);
 		exp2.setUser(user2);
@@ -144,21 +130,12 @@ public class DataLoader implements ApplicationRunner {
 		exp8.setUser(user4);
 		exp2.setUser(user4);
 		exp3.setUser(user4);
-
-		
-// Demo
-	
-		
 		exp9.setUser(user6);
 		exp10.setUser(user6);
 		exp11.setUser(user6); 
 		exp12.setUser(user6);
 		exp13.setUser(user6);
 		
-//		userRepo.save(user1);
-//		userRepo.save(user2);
-//		userRepo.save(user3);
-//		userRepo.save(user4);
 		
 		userService.register(user1);
 		userService.register(user2);

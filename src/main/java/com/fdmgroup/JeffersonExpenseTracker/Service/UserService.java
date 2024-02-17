@@ -71,14 +71,10 @@ public class UserService {
 	
 	public void register(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		System.out.println(user.getPassword());
 		this.userRepo.save(user);
 	}
 
 	public User findUserByToken(Authentication auth) {
-		// TODO Auto-generated method stub
-		System.out.println(auth.getName());
-		System.out.println(findByEmail(auth.getName()));
 		return findByEmail(auth.getName());
 	}
 	

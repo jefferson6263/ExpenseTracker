@@ -14,8 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
 
 import com.fdmgroup.JeffersonExpenseTracker.Controller.ExpenseController;
+import com.fdmgroup.JeffersonExpenseTracker.Controller.ExpenseRequest;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Service.ExpenseService;
 
@@ -25,6 +27,8 @@ public class ExpenseControllerTest {
 	@Mock
 	ExpenseService expenseService;
 	
+	@Mock
+	Authentication auth;
 	
 	ExpenseController expenseController;
 	
@@ -59,8 +63,14 @@ public class ExpenseControllerTest {
 	void updateExpense_test() {
 		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
 				LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 17));
-		expenseController.updateExpense(exp1);
-		verify(expenseService, times(1)).update(exp1);
+		
+		ExpenseRequest expenseRequest = new ExpenseRequest();
+		String[] Categories = null;
+		expenseRequest.setNewExpense(exp1);
+		expenseRequest.setCategories(null);
+		
+		expenseController.updateExpense(auth, expenseRequest);
+		verify(expenseService, times(1)).update(auth, exp1, Categories);
 	}
 	
 	@Test

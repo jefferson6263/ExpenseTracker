@@ -24,7 +24,6 @@ public class UserControllerTest {
 	@Mock
 	UserService userService;
 	
-	
 	UserController userController;
 	
 	@BeforeEach

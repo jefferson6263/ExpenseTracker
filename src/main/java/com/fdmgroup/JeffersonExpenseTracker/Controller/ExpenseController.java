@@ -40,9 +40,7 @@ public class ExpenseController {
 	
 	@PutMapping("expenses")
 	public void updateExpense(Authentication auth, @RequestBody ExpenseRequest newExpenseRequest) {
-		//gets rid of the user id
-		System.out.println(newExpenseRequest.getCategories());
-		System.out.println(newExpenseRequest.getNewExpense());
+
 		expenseService.update(auth, newExpenseRequest.getNewExpense(), newExpenseRequest.getCategories());
 	}
 	
@@ -56,13 +54,6 @@ public class ExpenseController {
 		return expenseService.findAll();  
 	}
 	
-//	@PostMapping("user/addexpense")
-//	public void addExpenseToUser(Authentication auth, @RequestBody Expense newExpense, @RequestBody String[] someArray) {
-//		System.out.println(newExpense);
-//		expenseService.addExpenseToUser(auth, newExpense);
-//	
-//		return;
-//	}
 	
 	@PostMapping("user/addexpense")
 	public void addExpenseToUser(Authentication auth, @RequestBody ExpenseRequest newExpenseRequest) {

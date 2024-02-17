@@ -85,7 +85,6 @@ const style = {
   width: 700,
   bgcolor: 'background.paper',
   boxShadow: 24,
-  // p: 1,
   padding: 6,
   borderRadius: 8,
 };

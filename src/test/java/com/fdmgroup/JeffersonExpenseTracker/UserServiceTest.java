@@ -18,6 +18,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.UserRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.EmailInUseException;
@@ -31,12 +32,15 @@ public class UserServiceTest {
 	@Mock
 	UserRepository userRepo;
 	
+	@Mock
+	PasswordEncoder passwordEncoder;
+	
 	UserService userService;
 	
 	@BeforeEach
 	void setup() {
 		
-		this.userService = new UserService(userRepo, null);
+		this.userService = new UserService(userRepo, passwordEncoder);
 
 	}
 	

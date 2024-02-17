@@ -2,18 +2,14 @@ package com.fdmgroup.JeffersonExpenseTracker.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-
-
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Category;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
-import com.fdmgroup.JeffersonExpenseTracker.Model.User;
+
 
 
 
@@ -47,7 +43,7 @@ public class ExpenseService {
 	
 
 	public void save(Expense newExpense) {
-		System.out.println(newExpense);
+
 		this.expenseRepo.save(newExpense);
 
 	}
@@ -58,11 +54,7 @@ public class ExpenseService {
 		
 
 		if (expenseRepo.existsById(newExpense.getId())) {
-//			Expense e = expenseRepo.findById(newExpense.getId()).get();
-//			 
-//			newExpense.setUser(e.getUser());
-//			newExpense.updateCategories(categories);
-//			this.expenseRepo.save(newExpense);
+
 			newExpense.setUser(userService.findByEmail(auth.getName())); 
 			
 			ArrayList<Category> newCategories = new ArrayList<>();

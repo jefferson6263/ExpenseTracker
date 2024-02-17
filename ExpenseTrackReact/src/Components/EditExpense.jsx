@@ -3,10 +3,7 @@ import * as React from 'react';
 import Button from '@mui/material/Button';
 
 import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-// import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import '../Fonts/Fonts.css';
 import { DatePicker } from '@mui/x-date-pickers';
@@ -16,7 +13,7 @@ import axios from 'axios';
 import { Alert } from '@mui/material';
 import { useEffect } from 'react';
 import dayjs, { Dayjs } from 'dayjs';
-import { set } from 'date-fns';
+import { Fade } from '@mui/material';
 
 
 const EditExpenseForm = (props) => {
@@ -33,6 +30,7 @@ const EditExpenseForm = (props) => {
     const [startDate, setStartDate] = React.useState("")
     const [endDate, setEndDate] = React.useState("")
     const [bearer, setBearer] = useState("")
+    const [updatedExpense, setUpdatedExpense] = useState(false)
 
     useEffect(()=>{
         setId(props["id"])
@@ -114,32 +112,12 @@ const EditExpenseForm = (props) => {
               categories:categories
             }
 
-            axios.put("http://localhost:8088/expensetracker/expenses", updatedExpense,requestOptions)
-
-                  
-                 
+            axios.put("http://localhost:8088/expensetracker/expenses", updatedExpense,requestOptions).then(
+              setUpdatedExpense(true)
+            )
+   
         })
-      
 
-
-   
- 
-   
-
-      // const newExpense = {
-      //   newExpense : {name: data.get('expenseName'),
-      //             amount: data.get('expenseAmount'),
-      //             description: data.get('expenseDescription'),
-      //             startDate: startDate,
-      //             endDate: endDate,
-      //           },
-      //   categories: chips
-      // }
-      
-      // axios.post("http://localhost:8088/expensetracker/user/addexpense", newExpense, requestOptions)
-      //       .then(response=>{
-  
-      //       }).catch()
     }
 
   }
@@ -219,7 +197,9 @@ const EditExpenseForm = (props) => {
             >
               Update Expense
             </Button>
- 
+            <Fade in={updatedExpense}>
+              <Alert severity="success">Expense Details have been updated</Alert>
+            </Fade>
           </Box>
          
         </Box>

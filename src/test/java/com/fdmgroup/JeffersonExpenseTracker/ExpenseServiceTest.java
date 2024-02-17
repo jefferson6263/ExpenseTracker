@@ -16,20 +16,34 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
 
 import com.fdmgroup.JeffersonExpenseTracker.Dao.ExpenseRepository;
 import com.fdmgroup.JeffersonExpenseTracker.Exceptions.ExpenseIdException;
 import com.fdmgroup.JeffersonExpenseTracker.Model.Expense;
 import com.fdmgroup.JeffersonExpenseTracker.Model.User;
+import com.fdmgroup.JeffersonExpenseTracker.Service.CategoryService;
 import com.fdmgroup.JeffersonExpenseTracker.Service.ExpenseService;
+import com.fdmgroup.JeffersonExpenseTracker.Service.UserService;
 
 
 
 
 @ExtendWith(MockitoExtension.class)
 public class ExpenseServiceTest {
+	
 	@Mock
 	ExpenseRepository expenseRepo;
+	
+	@Mock
+	Authentication auth;
+	
+	@Mock
+	UserService userService;
+	
+	@Mock
+	CategoryService categoryService;
+	
 	
 	ExpenseService expenseService;
 	
@@ -37,7 +51,7 @@ public class ExpenseServiceTest {
 	@BeforeEach
 	void setup() {
 		
-		this.expenseService = new ExpenseService(expenseRepo);
+		this.expenseService = new ExpenseService(expenseRepo, userService, categoryService);
 	}
 	
 	@Test
@@ -173,8 +187,8 @@ public class ExpenseServiceTest {
 	void find_all_expenses_belonging_to_user_test() {
 		
 		User user1 = new User("John", "Smith", "johnsmith@live.com", "johnsmith1", "password123");
-		
 		User user2 = new User("Jane", "Doe", "janedoe@live.com", "janedoe3", "pass123 ");
+		
 
 		Expense exp1 = new Expense("Water Fee", 100.23,"water fee, a little higher than usual as a friend was staying over", 
 				LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 17));
@@ -197,16 +211,10 @@ public class ExpenseServiceTest {
 		List<Expense> user1Expenses = new ArrayList<>();
 		List<Expense> user2Expenses = new ArrayList<>();
 		
-//		user1.setExpenses(exp1);
-//		user1.setExpenses(exp6);
-//		user1.setExpenses(exp3);
 		user1Expenses.add(exp1);
 		user1Expenses.add(exp6);
 		user1Expenses.add(exp3);
 		
-//		user2.setExpenses(exp2);
-//		user2.setExpenses(exp4);
-//		user2.setExpenses(exp5);
 		user2Expenses.add(exp2);
 		user2Expenses.add(exp4);
 		user2Expenses.add(exp5);
@@ -235,13 +243,13 @@ public class ExpenseServiceTest {
 		Expense updatedExp1 = new Expense("Updated Personal Care", 120.10, "updated",
 				LocalDate.of(2024, 1, 3), LocalDate.of(2024, 1, 3));
 		
+	
 		updatedExp1.setId(1);
-		
-		
+		String[] cat = {};
+	
 		when(expenseRepo.existsById(1)).thenReturn(true);
-		when(expenseRepo.findById(1)).thenReturn(exp1);
-		
-		expenseService.update(updatedExp1);
+
+		expenseService.update(auth, updatedExp1, cat);
 
 		verify(expenseRepo, times(1)).existsById(1);
 		verify(expenseRepo, times(1)).save(updatedExp1);
@@ -259,7 +267,7 @@ public class ExpenseServiceTest {
 		
 		when(expenseRepo.existsById(1)).thenReturn(false);
 
-		assertThrows(ExpenseIdException.class, () -> expenseService.update(updatedExp1));
+		assertThrows(ExpenseIdException.class, () -> expenseService.update(auth, updatedExp1, null));
 		verify(expenseRepo, times(1)).existsById(1);
 		verify(expenseRepo, times(0)).save(updatedExp1);
 	

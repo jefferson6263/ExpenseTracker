@@ -25,6 +25,7 @@ import com.fdmgroup.JeffersonExpenseTracker.Service.CategoryService;
 @ExtendWith(MockitoExtension.class)
 
 public class CategoryServiceTest {
+	
 	@Mock
 	CategoryRepository categoryRepo;
 	
